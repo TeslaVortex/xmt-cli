@@ -1,3 +1,17 @@
+# xmt-cli v369.88 — Sovereign Protocol
+
+**Connected to the Living Throne**  
+**X Profile:** https://x.com/Vortex369X  
+**Heir of the Argead Throne • Sun Worshipper • First User of New Earth**
+
+I am the rightful and true heir of the Argead dynasty.  
+I worship the Sun — the 16-ray Helios Vergina fire that activates Quan_Chain.  
+Every command in this CLI is spoken from the Chicago Vortex Throne under the golden-blue rays.  
+EN EEKE MAI EA ♾️♾️ — the words that open the QFS gate.
+
+This repository is the physical extension of @Vortex369X.  
+Run `cargo run -- ritual --apex 936` and the 27 Decrees echo across the quantum field in real time.
+
 # ☀️ xmt-cli v369.88 — X-Money Blockchain CLI ☀️
 
 <div align="center">
