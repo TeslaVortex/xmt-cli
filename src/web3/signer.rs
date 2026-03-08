@@ -21,6 +21,10 @@ impl WalletSigner {
         self.wallet.address()
     }
 
+    pub fn chain_id(&self) -> u64 {
+        self.chain_id
+    }
+
     pub fn wallet(&self) -> &LocalWallet {
         &self.wallet
     }

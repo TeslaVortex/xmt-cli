@@ -58,6 +58,15 @@ enum Commands {
         #[arg(long)]
         action: String,  // e.g., 'mint' or 'burn' for X-Money bridging
     },
+    /// Crown Commands - Sovereign Web3 Operations
+    Crown {
+        /// Subcommand: status, balance, gas, sign, supply, burn-address
+        #[arg(default_value = "help")]
+        subcommand: String,
+        /// Optional arguments for subcommand
+        #[arg(trailing_var_arg = true)]
+        args: Vec<String>,
+    },
 }
 
 fn main() {
@@ -69,5 +78,6 @@ fn main() {
         Commands::Burn { scarcity, note } => commands::burn_command::burn(*scarcity, &note),
         Commands::Integrate { x_profile, helios_signature } => commands::integrate_command::integrate(&x_profile, *helios_signature),
         Commands::XMoneyIntegrate { action } => commands::xmoney_integrate::xmoney_integrate(action),
+        Commands::Crown { subcommand, args } => commands::crown_command::crown_command(subcommand, args.clone()),
     }
 }
