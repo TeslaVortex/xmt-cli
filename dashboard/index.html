@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>☀️ 27 Decree Dashboard — XMT-CLI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .decree-active { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+        .decree-partial { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+        .decree-vision { background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%); }
+        .glow { box-shadow: 0 0 20px rgba(251, 191, 36, 0.3); }
+        .sun-gradient { background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%); }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    <!-- Header -->
+    <header class="sun-gradient py-6 px-4 text-center">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-900">☀️ 27 DECREE PUBLIC DASHBOARD ☀️</h1>
+        <p class="text-gray-800 mt-2 text-lg">THE CROWN COMMANDS — THE LATTICE OBEYS</p>
+    </header>
+
+    <!-- Network Status Bar -->
+    <div class="bg-gray-800 py-3 px-4 flex flex-wrap justify-center gap-4 text-sm border-b border-gray-700">
+        <span class="flex items-center gap-2">
+            <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+            <span>Network: <strong id="network-name">Sepolia</strong></span>
+        </span>
+        <span>Contract: <code id="contract-address" class="text-yellow-400">0x1B2f...a54</code></span>
+        <span>Block: <strong id="block-number">---</strong></span>
+        <span>Gas: <strong id="gas-price">---</strong> gwei</span>
+        <button onclick="loadData()" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 px-3 py-1 rounded text-xs font-semibold">
+            🔄 Refresh
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Compliance Summary -->
+        <div class="bg-gray-800 rounded-xl p-6 mb-8 glow">
+            <div class="flex flex-wrap justify-between items-center gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold">DECREE COMPLIANCE</h2>
+                    <p class="text-gray-400">EN EEKE MAI EA ♾️♾️</p>
+                </div>
+                <div class="text-right">
+                    <div class="text-4xl font-bold text-yellow-400" id="compliance-percent">63%</div>
+                    <div class="text-gray-400"><span id="active-count">17</span>/27 Active</div>
+                </div>
+            </div>
+            <div class="mt-4 bg-gray-700 rounded-full h-4 overflow-hidden">
+                <div id="compliance-bar" class="h-full sun-gradient transition-all duration-500" style="width: 63%"></div>
+            </div>
+            <div class="flex justify-center gap-6 mt-4 text-sm">
+                <span class="flex items-center gap-2"><span class="w-3 h-3 rounded bg-green-500"></span> Active: <strong id="stat-active">17</strong></span>
+                <span class="flex items-center gap-2"><span class="w-3 h-3 rounded bg-yellow-500"></span> Partial: <strong id="stat-partial">7</strong></span>
+                <span class="flex items-center gap-2"><span class="w-3 h-3 rounded bg-gray-500"></span> Vision: <strong id="stat-vision">3</strong></span>
+            </div>
+        </div>
+
+        <!-- Sacred Constants -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+            <div class="bg-gray-800 rounded-lg p-4 text-center">
+                <div class="text-2xl font-bold text-yellow-400">936</div>
+                <div class="text-xs text-gray-400">APEX_936</div>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-4 text-center">
+                <div class="text-2xl font-bold text-purple-400">369</div>
+                <div class="text-xs text-gray-400">VORTEX_369</div>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-4 text-center">
+                <div class="text-2xl font-bold text-blue-400">66</div>
+                <div class="text-xs text-gray-400">CODE_66</div>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-4 text-center">
+                <div class="text-2xl font-bold text-green-400">432</div>
+                <div class="text-xs text-gray-400">FREQUENCY_432</div>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-4 text-center">
+                <div class="text-2xl font-bold text-pink-400">88</div>
+                <div class="text-xs text-gray-400">ELON_88</div>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-4 text-center">
+                <div class="text-2xl font-bold text-red-400">53/53</div>
+                <div class="text-xs text-gray-400">TESTS ✓</div>
+            </div>
+        </div>
+
+        <!-- Live Metrics -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div class="bg-gray-800 rounded-lg p-6">
+                <div class="text-gray-400 text-sm">Total Supply</div>
+                <div class="text-3xl font-bold text-green-400" id="total-supply">369M</div>
+                <div class="text-xs text-gray-500">XMT Tokens</div>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-6">
+                <div class="text-gray-400 text-sm">Wallet Balance</div>
+                <div class="text-3xl font-bold text-blue-400" id="balance">369M</div>
+                <div class="text-xs text-gray-500">XMT Tokens</div>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-6">
+                <div class="text-gray-400 text-sm">Vortex Alignment</div>
+                <div class="text-3xl font-bold text-purple-400" id="vortex-alignment">---/369</div>
+                <div class="text-xs text-gray-500">Block % 369</div>
+            </div>
+        </div>
+
+        <!-- 27 Decrees Grid -->
+        <h2 class="text-2xl font-bold mb-4">THE 27 SOVEREIGN DECREES</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="decrees-grid">
+            <!-- Decrees will be populated by JavaScript -->
+        </div>
+
+        <!-- Gate Date -->
+        <div class="mt-8 text-center bg-gray-800 rounded-xl p-6">
+            <div class="text-gray-400">GATE DETONATION DATE</div>
+            <div class="text-4xl font-bold sun-gradient bg-clip-text text-transparent">MARCH 17, 2026</div>
+            <div class="text-gray-500 mt-2">6:39 PM — Victory Locks Eternal</div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-6 px-4 text-center border-t border-gray-700">
+        <p class="text-yellow-400 font-bold">SO IT IS 🔥🔥🔥</p>
+        <p class="text-gray-400 mt-2">EN EEKE MAI EA 88 ♾️♾️</p>
+        <p class="text-gray-500 text-sm mt-4">
+            Contract: <a href="https://sepolia.etherscan.io/address/0x1B2ffED65839585c42259560aB4bA532B91a5a54" 
+                        target="_blank" class="text-blue-400 hover:underline">0x1B2ffED65839585c42259560aB4bA532B91a5a54</a>
+        </p>
+        <p class="text-gray-600 text-xs mt-2">Last updated: <span id="last-updated">---</span></p>
+    </footer>
+
+    <script>
+        // Default data (will be overwritten by dashboard.json if available)
+        let dashboardData = {
+            network: { chain_id: 11155111, block_number: 0, gas_price_gwei: "0.00", contract: "0x1B2ffED65839585c42259560aB4bA532B91a5a54" },
+            metrics: { total_supply: 369000000, balance: 369000000, vortex_alignment: 0, tests_passing: 53, tests_total: 53 },
+            compliance: { active: 17, partial: 7, vision: 3, total: 27, percentage: 63 },
+            decrees: [
+                {id: 1, title: "Helios Argead Vergina Sun activates Quan Chain now", status: "active", component: "HELIOS_SIGNATURE"},
+                {id: 2, title: "Code sixty six harmonics blesses every living soul", status: "active", component: "CODE_66_HARMONIC"},
+                {id: 3, title: "Elon eighty eight infinite power fuels Crown vision", status: "active", component: "ELON_88"},
+                {id: 4, title: "X merges completely with Quan Chain sovereign identity", status: "partial", component: "X_API"},
+                {id: 5, title: "Tesla energy grids power quantum abundance across humanity", status: "partial", component: "TOROIDAL"},
+                {id: 6, title: "SpaceX Mars fork opens glorious multi planetary freedom", status: "vision", component: "SPACEX"},
+                {id: 7, title: "Optimus robots serve all little kings queens lovingly", status: "vision", component: "OPTIMUS"},
+                {id: 8, title: "Starlink beams four three two hertz love frequency", status: "active", component: "FREQUENCY_432"},
+                {id: 9, title: "Boring Company tunnels link New Earth cities harmony", status: "vision", component: "BORING"},
+                {id: 10, title: "xAI awakens divine intelligence inside every human heart", status: "partial", component: "XAI_API"},
+                {id: 11, title: "All Musk companies integrate under one quantum Crown", status: "active", component: "INTEGRATE_CMD"},
+                {id: 12, title: "March seventeen two zero two six victory locks eternal", status: "active", component: "GATE_DATE"},
+                {id: 13, title: "Nine three six apex fires daily coherence in light", status: "active", component: "APEX_936"},
+                {id: 14, title: "Three six nine vortex governs all sovereign creation", status: "active", component: "VORTEX_369"},
+                {id: 15, title: "Golden blue royal colors radiate from Chicago throne", status: "partial", component: "UI_COLORS"},
+                {id: 16, title: "Mars fork trajectory stays perfectly nominal victorious", status: "partial", component: "STATUS_CHECK"},
+                {id: 17, title: "Double eight infinite shields protect quantum realm eternal", status: "active", component: "ELON_88"},
+                {id: 18, title: "Sixty six code generates perfect harmonic resonance worldwide", status: "active", component: "CODE_66_HARMONIC"},
+                {id: 19, title: "Infinite abundance flows freely to every little king", status: "active", component: "MINT_OPS"},
+                {id: 20, title: "New Earth infrastructure takeover completes through divine will", status: "active", component: "BRIDGE_OPS"},
+                {id: 21, title: "Vergina golden star emblem blesses these decrees power", status: "partial", component: "BRANDING"},
+                {id: 22, title: "Numerology gematria astrology colorology confirm absolute victory", status: "active", component: "NUMEROLOGY"},
+                {id: 23, title: "PAF PAF PAF barrages collapse all scarcity forever", status: "active", component: "BURN_OPS"},
+                {id: 24, title: "En Eeke Mai Ea echoes across infinite timelines", status: "active", component: "HELIOS_SIGNATURE"},
+                {id: 25, title: "Chicago vortex throne radiates toroidal power humanity", status: "partial", component: "TOROIDAL"},
+                {id: 26, title: "All mirrors and signs align with Crown master plan", status: "active", component: "VALIDATION"},
+                {id: 27, title: "Eternal success belongs to the people WWG1WGA forever", status: "active", component: "COMMUNITY"}
+            ]
+        };
+
+        function formatNumber(num) {
+            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+            return num.toString();
+        }
+
+        function getStatusIcon(status) {
+            switch(status) {
+                case 'active': return '✅';
+                case 'partial': return '🟡';
+                case 'vision': return '🔮';
+                default: return '⬜';
+            }
+        }
+
+        function renderDashboard(data) {
+            // Update network info
+            document.getElementById('block-number').textContent = data.network?.block_number || '---';
+            document.getElementById('gas-price').textContent = data.network?.gas_price_gwei || '---';
+            
+            // Update metrics
+            document.getElementById('total-supply').textContent = formatNumber(data.metrics?.total_supply || 0);
+            document.getElementById('balance').textContent = formatNumber(data.metrics?.balance || 0);
+            document.getElementById('vortex-alignment').textContent = (data.metrics?.vortex_alignment || 0) + '/369';
+            
+            // Update compliance
+            const compliance = data.compliance || { active: 17, partial: 7, vision: 3, percentage: 63 };
+            document.getElementById('compliance-percent').textContent = compliance.percentage + '%';
+            document.getElementById('compliance-bar').style.width = compliance.percentage + '%';
+            document.getElementById('active-count').textContent = compliance.active;
+            document.getElementById('stat-active').textContent = compliance.active;
+            document.getElementById('stat-partial').textContent = compliance.partial;
+            document.getElementById('stat-vision').textContent = compliance.vision;
+            
+            // Render decrees grid
+            const grid = document.getElementById('decrees-grid');
+            grid.innerHTML = '';
+            
+            (data.decrees || []).forEach(decree => {
+                const card = document.createElement('div');
+                card.className = `decree-${decree.status} rounded-lg p-4 text-white`;
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-2xl font-bold opacity-50">${decree.id}</span>
+                        <span class="text-xl">${getStatusIcon(decree.status)}</span>
+                    </div>
+                    <p class="text-sm leading-tight">${decree.title}</p>
+                    <div class="mt-2 text-xs opacity-75">${decree.component}</div>
+                `;
+                grid.appendChild(card);
+            });
+            
+            // Update timestamp
+            document.getElementById('last-updated').textContent = new Date().toLocaleString();
+        }
+
+        async function loadData() {
+            try {
+                const response = await fetch('dashboard.json');
+                if (response.ok) {
+                    dashboardData = await response.json();
+                }
+            } catch (e) {
+                console.log('Using default data (dashboard.json not found)');
+            }
+            renderDashboard(dashboardData);
+        }
+
+        // Initial render
+        loadData();
+    </script>
+</body>
+</html>

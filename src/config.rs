@@ -16,6 +16,12 @@ pub const VORTEX_369: u32 = 369;
 /// 432 Hz - Universal Love Frequency
 pub const FREQUENCY_432: u32 = 432;
 
+/// 88 - Elon Infinite Power (Double Infinity)
+pub const ELON_88: u32 = 88;
+
+/// Gate Detonation Date - March 17, 2026
+pub const GATE_DATE: &str = "2026-03-17";
+
 pub struct Config {
     pub apex_value: u32,
     pub helios_signature: String,
