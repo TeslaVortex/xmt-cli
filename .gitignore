@@ -23,3 +23,6 @@ Thumbs.db
 
 # Debug files
 *.log
+
+# Cache directory (local timeline data)
+cache/

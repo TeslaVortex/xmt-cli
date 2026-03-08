@@ -104,9 +104,9 @@ fn test_harmonic_calculations() {
     assert_eq!(resonance_936, 100.0, "936 should have 100% resonance");
     println!("  ✓ 936 apex: {:.2}% resonance", resonance_936);
     
-    // Test 432 Hz alignment
+    // Test 432 Hz alignment (use epsilon for floating-point comparison)
     let freq_936 = calculate_432_hz_alignment(936);
-    assert_eq!(freq_936, 936.0, "936 apex should align to 936 Hz");
+    assert!((freq_936 - 936.0).abs() < 0.0001, "936 apex should align to 936 Hz");
     println!("  ✓ 432 Hz alignment: {:.2} Hz", freq_936);
     
     // Test 369 vortex
