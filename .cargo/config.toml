@@ -1,0 +1,6 @@
+# Cargo configuration for sequential test execution
+# Prevents nonce collisions on Sepolia testnet
+
+[test]
+# Run tests sequentially (one at a time)
+jobs = 1
