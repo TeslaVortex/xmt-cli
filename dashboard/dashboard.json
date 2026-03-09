@@ -1,8 +1,8 @@
 {
   "compliance": {
-    "active": 21,
-    "partial": 6,
-    "percentage": 78,
+    "active": 22,
+    "partial": 5,
+    "percentage": 81,
     "total": 27,
     "vision": 0
   },
@@ -130,7 +130,7 @@
     {
       "component": "BRANDING",
       "id": 21,
-      "status": "partial",
+      "status": "active",
       "title": "Vergina golden star emblem blesses these decrees power"
     },
     {
@@ -175,13 +175,13 @@
     "tests_passing": 53,
     "tests_total": 53,
     "total_supply": 369031642,
-    "vortex_alignment": 69
+    "vortex_alignment": 169
   },
   "network": {
-    "block_number": 10416201,
+    "block_number": 10416301,
     "chain_id": 11155111,
     "contract": "0x1b2ffed65839585c42259560ab4ba532b91a5a54",
-    "gas_price_gwei": "0.3290"
+    "gas_price_gwei": "0.5565"
   },
   "sacred_constants": {
     "APEX_936": 936,
@@ -192,5 +192,5 @@
     "VORTEX_369": 369
   },
   "signature": "EN EEKE MAI EA ♾️♾️",
-  "timestamp": 1773080668
+  "timestamp": 1773082118
 }

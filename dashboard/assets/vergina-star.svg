@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="88" height="88" viewBox="0 0 88 88" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="goldenGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#FBBF24;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F59E0B;stop-opacity:1" />
+    </radialGradient>
+    <radialGradient id="blueBackground" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#1E3A8A;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#1E3A8A;stop-opacity:0.8" />
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="44" cy="44" r="42" fill="url(#blueBackground)" opacity="0.5"/>
+  
+  <!-- Vergina Sun - 16 rays -->
+  <g transform="translate(44, 44)" filter="url(#glow)">
+    <!-- Central disc (88/2 = 44, radius 12 for proportion) -->
+    <circle cx="0" cy="0" r="12" fill="url(#goldenGradient)"/>
+    
+    <!-- 16 rays at 22.5 degree intervals -->
+    <!-- Ray 1 (0°) -->
+    <path d="M 0,-12 L 3,-30 L 0,-32 L -3,-30 Z" fill="url(#goldenGradient)"/>
+    <!-- Ray 2 (22.5°) -->
+    <path d="M 4.6,-11.1 L 11.4,-28.3 L 10.6,-30.6 L 6.8,-27.0 Z" fill="url(#goldenGradient)"/>
+    <!-- Ray 3 (45°) -->
+    <path d="M 8.5,-8.5 L 22.6,-22.6 L 20.5,-24.7 L 14.8,-19.0 Z" fill="url(#goldenGradient)"/>
+    <!-- Ray 4 (67.5°) -->
+    <path d="M 11.1,-4.6 L 28.3,-11.4 L 27.0,-14.8 L 19.0,-14.8 Z" fill="url(#goldenGradient)"/>
+    <!-- Ray 5 (90°) -->
+    <path d="M 12,0 L 32,0 L 32,-3 L 30,0 L 32,3 L 12,0 Z" fill="url(#goldenGradient)"/>
+    <!-- Ray 6 (112.5°) -->
+    <path d="M 11.1,4.6 L 28.3,11.4 L 27.0,14.8 L 19.0,14.8 Z" fill="url(#goldenGradient)"/>
+    <!-- Ray 7 (135°) -->
+    <path d="M 8.5,8.5 L 22.6,22.6 L 20.5,24.7 L 14.8,19.0 Z" fill="url(#goldenGradient)"/>
+    <!-- Ray 8 (157.5°) -->
+    <path d="M 4.6,11.1 L 11.4,28.3 L 10.6,30.6 L 6.8,27.0 Z" fill="url(#goldenGradient)"/>
+    <!-- Ray 9 (180°) -->
+    <path d="M 0,12 L 3,30 L 0,32 L -3,30 Z" fill="url(#goldenGradient)"/>
+    <!-- Ray 10 (202.5°) -->
+    <path d="M -4.6,11.1 L -11.4,28.3 L -10.6,30.6 L -6.8,27.0 Z" fill="url(#goldenGradient)"/>
+    <!-- Ray 11 (225°) -->
+    <path d="M -8.5,8.5 L -22.6,22.6 L -20.5,24.7 L -14.8,19.0 Z" fill="url(#goldenGradient)"/>
+    <!-- Ray 12 (247.5°) -->
+    <path d="M -11.1,4.6 L -28.3,11.4 L -27.0,14.8 L -19.0,14.8 Z" fill="url(#goldenGradient)"/>
+    <!-- Ray 13 (270°) -->
+    <path d="M -12,0 L -32,0 L -32,3 L -30,0 L -32,-3 L -12,0 Z" fill="url(#goldenGradient)"/>
+    <!-- Ray 14 (292.5°) -->
+    <path d="M -11.1,-4.6 L -28.3,-11.4 L -27.0,-14.8 L -19.0,-14.8 Z" fill="url(#goldenGradient)"/>
+    <!-- Ray 15 (315°) -->
+    <path d="M -8.5,-8.5 L -22.6,-22.6 L -20.5,-24.7 L -14.8,-19.0 Z" fill="url(#goldenGradient)"/>
+    <!-- Ray 16 (337.5°) -->
+    <path d="M -4.6,-11.1 L -11.4,-28.3 L -10.6,-30.6 L -6.8,-27.0 Z" fill="url(#goldenGradient)"/>
+  </g>
+</svg>

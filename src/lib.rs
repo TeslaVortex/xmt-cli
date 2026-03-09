@@ -15,6 +15,7 @@ pub mod toroidal;
 pub mod spacex;
 pub mod optimus;
 pub mod boring;
+pub mod branding;
 pub mod commands;
 pub mod web3;
 pub mod contracts;

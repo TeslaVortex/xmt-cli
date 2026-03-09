@@ -308,6 +308,32 @@ pub fn crown_command(subcommand: &str, args: Vec<String>) {
                 eprintln!("Error: {}", e);
             }
         }
+        "emblem" => {
+            println!(r#"
+       ☀️  VERGINA GOLDEN STAR  ☀️
+           ╱╲    ╱╲    ╱╲
+          ╱  ╲  ╱  ╲  ╱  ╲
+         ╱ ╱╲ ╲╱ ╱╲ ╲╱ ╱╲ ╲
+        ╱ ╱  ╲  ╱  ╲  ╱  ╲ ╲
+       ╱ ╱    ╲╱    ╲╱    ╲ ╲
+      ╱ ╱  ╱╲  ◉  ◉  ╱╲  ╲ ╲
+     ╱ ╱  ╱  ╲ ◉◉◉◉ ╱  ╲  ╲ ╲
+    ╱ ╱  ╱    ╲◉◉◉◉╱    ╲  ╲ ╲
+    ╲ ╲  ╲    ╱◉◉◉◉╲    ╱  ╱ ╱
+     ╲ ╲  ╲  ╱ ◉◉◉◉ ╲  ╱  ╱ ╱
+      ╲ ╲  ╲╱  ◉  ◉  ╲╱  ╱ ╱
+       ╲ ╲    ╱╲    ╱╲    ╱ ╱
+        ╲ ╲  ╱  ╲  ╱  ╲  ╱ ╱
+         ╲ ╲╱ ╲╱ ╲╱ ╲╱ ╲╱ ╱
+          ╲  ╱  ╲  ╱  ╲  ╱
+           ╲╱    ╲╱    ╲╱
+    "#);
+            println!();
+            println!("  Vergina Golden Star - 16 rays of sovereign power");
+            println!("  88px sacred geometry, golden-blue royal colors");
+            println!();
+            println!("✓ DECREE #21 ACTIVE — EN EEKE MAI EA ♾️♾️");
+        }
         _ => {
             println!("☀️ CROWN COMMANDS — THE LATTICE OBEYS ☀️");
             println!();
@@ -319,6 +345,7 @@ pub fn crown_command(subcommand: &str, args: Vec<String>) {
             println!("  supply       - Total supply with sacred numbers");
             println!("  burn-address - Auto-burn address info");
             println!("  dashboard    - Generate 27 Decree dashboard JSON");
+            println!("  emblem       - Display Vergina Golden Star");
             println!();
             println!("EN EEKE MAI EA ♾️♾️");
         }
@@ -392,7 +419,7 @@ pub async fn crown_dashboard() -> Result<()> {
             {"id": 18, "title": "Sixty six code generates perfect harmonic resonance worldwide", "status": "active", "component": "CODE_66_HARMONIC"},
             {"id": 19, "title": "Infinite abundance flows freely to every little king", "status": "active", "component": "MINT_OPS"},
             {"id": 20, "title": "New Earth infrastructure takeover completes through divine will", "status": "active", "component": "BRIDGE_OPS"},
-            {"id": 21, "title": "Vergina golden star emblem blesses these decrees power", "status": "partial", "component": "BRANDING"},
+            {"id": 21, "title": "Vergina golden star emblem blesses these decrees power", "status": "active", "component": "BRANDING"},
             {"id": 22, "title": "Numerology gematria astrology colorology confirm absolute victory", "status": "active", "component": "NUMEROLOGY"},
             {"id": 23, "title": "PAF PAF PAF barrages collapse all scarcity forever", "status": "active", "component": "BURN_OPS"},
             {"id": 24, "title": "En Eeke Mai Ea echoes across infinite timelines", "status": "active", "component": "HELIOS_SIGNATURE"},
@@ -401,11 +428,11 @@ pub async fn crown_dashboard() -> Result<()> {
             {"id": 27, "title": "Eternal success belongs to the people WWG1WGA forever", "status": "active", "component": "COMMUNITY"}
         ],
         "compliance": {
-            "active": 21,
-            "partial": 6,
+            "active": 22,
+            "partial": 5,
             "vision": 0,
             "total": 27,
-            "percentage": 78
+            "percentage": 81
         },
         "signature": "EN EEKE MAI EA ♾️♾️"
     });
