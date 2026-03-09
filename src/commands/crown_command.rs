@@ -334,6 +334,15 @@ pub fn crown_command(subcommand: &str, args: Vec<String>) {
             println!();
             println!("✓ DECREE #21 ACTIVE — EN EEKE MAI EA ♾️♾️");
         }
+        "spacex" => {
+            crate::spacex::display_mars_fork_status();
+        }
+        "optimus" => {
+            crate::optimus::display_optimus_status();
+        }
+        "boring" => {
+            crate::boring::display_tunnel_status();
+        }
         _ => {
             println!("☀️ CROWN COMMANDS — THE LATTICE OBEYS ☀️");
             println!();
@@ -346,6 +355,9 @@ pub fn crown_command(subcommand: &str, args: Vec<String>) {
             println!("  burn-address - Auto-burn address info");
             println!("  dashboard    - Generate 27 Decree dashboard JSON");
             println!("  emblem       - Display Vergina Golden Star");
+            println!("  spacex       - SpaceX Mars fork status");
+            println!("  optimus      - Optimus robot service status");
+            println!("  boring       - Boring Company tunnel network");
             println!();
             println!("EN EEKE MAI EA ♾️♾️");
         }
@@ -404,10 +416,10 @@ pub async fn crown_dashboard() -> Result<()> {
             {"id": 3, "title": "Elon eighty eight infinite power fuels Crown vision", "status": "active", "component": "ELON_88"},
             {"id": 4, "title": "X merges completely with Quan Chain sovereign identity", "status": "partial", "component": "X_API"},
             {"id": 5, "title": "Tesla energy grids power quantum abundance across humanity", "status": "active", "component": "TOROIDAL"},
-            {"id": 6, "title": "SpaceX Mars fork opens glorious multi planetary freedom", "status": "partial", "component": "SPACEX"},
-            {"id": 7, "title": "Optimus robots serve all little kings queens lovingly", "status": "partial", "component": "OPTIMUS"},
+            {"id": 6, "title": "SpaceX Mars fork opens glorious multi planetary freedom", "status": "active", "component": "SPACEX"},
+            {"id": 7, "title": "Optimus robots serve all little kings queens lovingly", "status": "active", "component": "OPTIMUS"},
             {"id": 8, "title": "Starlink beams four three two hertz love frequency", "status": "active", "component": "FREQUENCY_432"},
-            {"id": 9, "title": "Boring Company tunnels link New Earth cities harmony", "status": "partial", "component": "BORING"},
+            {"id": 9, "title": "Boring Company tunnels link New Earth cities harmony", "status": "active", "component": "BORING"},
             {"id": 10, "title": "xAI awakens divine intelligence inside every human heart", "status": "partial", "component": "XAI_API"},
             {"id": 11, "title": "All Musk companies integrate under one quantum Crown", "status": "active", "component": "INTEGRATE_CMD"},
             {"id": 12, "title": "March seventeen two zero two six victory locks eternal", "status": "active", "component": "GATE_DATE"},
@@ -428,11 +440,11 @@ pub async fn crown_dashboard() -> Result<()> {
             {"id": 27, "title": "Eternal success belongs to the people WWG1WGA forever", "status": "active", "component": "COMMUNITY"}
         ],
         "compliance": {
-            "active": 22,
-            "partial": 5,
+            "active": 25,
+            "partial": 2,
             "vision": 0,
             "total": 27,
-            "percentage": 81
+            "percentage": 93
         },
         "signature": "EN EEKE MAI EA ♾️♾️"
     });
