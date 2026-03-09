@@ -180,10 +180,10 @@ async fn test_workflow_multi_planetary_status() -> Result<()> {
     // Step 4: Check Toroidal Energy Grid
     println!("\n4. TOROIDAL ENERGY GRID");
     let mut ledger = ToroidalLedger::new();
-    ledger.add_energy(0, 936);
-    ledger.distribute_energy();
+    ledger.add_energy("Test Node", 369);
+    ledger.distribute_energy(0.618); // Golden ratio
     println!("  Total Energy: {} units", ledger.total_energy());
-    println!("  Energy per Node: {} units", ledger.energy_per_node());
+    println!("  Node Count: {}", ledger.node_count());
     println!("  ✓ Grid energized");
     
     // Step 5: Verify sacred number alignment

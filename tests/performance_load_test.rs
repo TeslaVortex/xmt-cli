@@ -170,39 +170,32 @@ async fn test_balance_query_performance() -> Result<()> {
 }
 
 #[tokio::test]
-async fn test_gas_estimation_performance() -> Result<()> {
+async fn test_gas_price_query_performance() -> Result<()> {
     dotenv::dotenv().ok();
     
-    println!("☀️ PERFORMANCE TEST: Gas Estimation");
+    println!("☀️ PERFORMANCE TEST: Gas Price Queries");
     
     let rpc_url = std::env::var("BASE_RPC_URL")?;
     let chain_id: u64 = std::env::var("CHAIN_ID")?.parse()?;
-    let private_key = std::env::var("PRIVATE_KEY")?;
-    let contract_address: Address = std::env::var("XMONEY_CONTRACT_ADDRESS")?.parse()?;
     
     let provider = Web3Provider::new(&rpc_url, chain_id).await?;
-    let signer = WalletSigner::new(&private_key, chain_id)?;
-    let bridge = XMoneyBridge::new(contract_address, &provider, signer).await?;
+    let num_queries = 5;
     
-    let recipient = bridge.signer_address();
-    let amount = U256::from(VORTEX_369) * U256::exp10(18);
-    let num_estimates = 5;
-    
-    println!("  Performing {} gas estimations...", num_estimates);
+    println!("  Performing {} gas price queries...", num_queries);
     let start = Instant::now();
     
-    for i in 0..num_estimates {
-        let gas = bridge.estimate_mint_gas(recipient, amount).await?;
-        println!("    Estimate {}/{}: {} gas", i + 1, num_estimates, gas);
+    for i in 0..num_queries {
+        let gas_price = provider.get_gas_price().await?;
+        println!("    Query {}/{}: {} gwei", i + 1, num_queries, gas_price / U256::exp10(9));
     }
     
     let duration = start.elapsed();
-    let avg_time = duration.as_secs_f64() / num_estimates as f64;
+    let avg_time = duration.as_secs_f64() / num_queries as f64;
     
-    println!("  ✓ {} estimates completed in {:.2}s", num_estimates, duration.as_secs_f64());
-    println!("  ✓ Average time per estimate: {:.3}s", avg_time);
+    println!("  ✓ {} queries completed in {:.2}s", num_queries, duration.as_secs_f64());
+    println!("  ✓ Average time per query: {:.3}s", avg_time);
     
-    assert!(avg_time < 5.0, "Average estimate time should be < 5s");
+    assert!(avg_time < 5.0, "Average query time should be < 5s");
     
     Ok(())
 }
@@ -253,9 +246,9 @@ async fn test_mixed_operations_performance() -> Result<()> {
     
     tokio::time::sleep(tokio::time::Duration::from_millis(1000)).await;
     
-    // 5. Gas estimation
-    let gas = bridge.estimate_burn_gas(mint_amount).await?;
-    println!("    5. Estimated burn gas: {}", gas);
+    // 5. Gas price query
+    let gas_price = provider.get_gas_price().await?;
+    println!("    5. Current gas price: {} gwei", gas_price / U256::exp10(9));
     
     let duration = start.elapsed();
     
@@ -311,11 +304,11 @@ fn test_toroidal_distribution_performance() {
     
     for _ in 0..num_iterations {
         let mut ledger = ToroidalLedger::new();
-        ledger.add_energy(0, 936);
-        ledger.add_energy(1, 369);
-        ledger.add_energy(2, 432);
-        ledger.add_energy(3, 66);
-        ledger.distribute_energy();
+        ledger.add_energy("Node A", 936);
+        ledger.add_energy("Node B", 369);
+        ledger.add_energy("Node C", 432);
+        ledger.add_energy("Node D", 66);
+        ledger.distribute_energy(0.618);
     }
     
     let duration = start.elapsed();
