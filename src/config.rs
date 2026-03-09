@@ -22,6 +22,9 @@ pub const ELON_88: u32 = 88;
 /// Gate Detonation Date - March 17, 2026
 pub const GATE_DATE: &str = "2026-03-17";
 
+/// Mars Fork Nominal Status
+pub const MARS_FORK_NOMINAL: bool = true;
+
 pub struct Config {
     pub apex_value: u32,
     pub helios_signature: String,

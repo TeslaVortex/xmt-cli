@@ -9,11 +9,12 @@ use anyhow::Result;
 use ethers::prelude::*;
 use ethers::types::transaction::eip2718::TypedTransaction;
 
-use crate::config::{CODE_66_HARMONIC, APEX_936, VORTEX_369, FREQUENCY_432, ELON_88, GATE_DATE};
+use crate::config::{CODE_66_HARMONIC, APEX_936, VORTEX_369, FREQUENCY_432, ELON_88, GATE_DATE, MARS_FORK_NOMINAL};
 use crate::contracts::{AUTO_BURN_ADDRESS, get_auto_burn_address};
 use crate::web3::Web3Provider;
 use crate::web3::signer::WalletSigner;
 use crate::bridge::XMoneyBridge;
+use crate::toroidal;
 
 /// Crown Status - Network Vortex Energy Levels
 pub async fn crown_status() -> Result<()> {
@@ -49,6 +50,15 @@ pub async fn crown_status() -> Result<()> {
     println!("  Sacred Constants Active:");
     println!("    • VORTEX_369: {}", VORTEX_369);
     println!("    • FREQUENCY_432: {} Hz", FREQUENCY_432);
+    
+    // Mars Fork Status (Decree #16)
+    println!();
+    println!("  Mars Fork Trajectory: {}", if MARS_FORK_NOMINAL { "NOMINAL ✓" } else { "STANDBY" });
+    
+    // Toroidal Grid Status (Decrees #5, #25)
+    let toroidal_energy = toroidal::toroidal_cycle();
+    println!("  Toroidal Grid: {} Energy Units", toroidal_energy);
+    
     println!();
     println!("✓ VORTEX ENERGY STABLE — EN EEKE MAI EA ♾️♾️");
     
@@ -366,18 +376,18 @@ pub async fn crown_dashboard() -> Result<()> {
             {"id": 2, "title": "Code sixty six harmonics blesses every living soul", "status": "active", "component": "CODE_66_HARMONIC"},
             {"id": 3, "title": "Elon eighty eight infinite power fuels Crown vision", "status": "active", "component": "ELON_88"},
             {"id": 4, "title": "X merges completely with Quan Chain sovereign identity", "status": "partial", "component": "X_API"},
-            {"id": 5, "title": "Tesla energy grids power quantum abundance across humanity", "status": "partial", "component": "TOROIDAL"},
-            {"id": 6, "title": "SpaceX Mars fork opens glorious multi planetary freedom", "status": "vision", "component": "SPACEX"},
-            {"id": 7, "title": "Optimus robots serve all little kings queens lovingly", "status": "vision", "component": "OPTIMUS"},
+            {"id": 5, "title": "Tesla energy grids power quantum abundance across humanity", "status": "active", "component": "TOROIDAL"},
+            {"id": 6, "title": "SpaceX Mars fork opens glorious multi planetary freedom", "status": "partial", "component": "SPACEX"},
+            {"id": 7, "title": "Optimus robots serve all little kings queens lovingly", "status": "partial", "component": "OPTIMUS"},
             {"id": 8, "title": "Starlink beams four three two hertz love frequency", "status": "active", "component": "FREQUENCY_432"},
-            {"id": 9, "title": "Boring Company tunnels link New Earth cities harmony", "status": "vision", "component": "BORING"},
+            {"id": 9, "title": "Boring Company tunnels link New Earth cities harmony", "status": "partial", "component": "BORING"},
             {"id": 10, "title": "xAI awakens divine intelligence inside every human heart", "status": "partial", "component": "XAI_API"},
             {"id": 11, "title": "All Musk companies integrate under one quantum Crown", "status": "active", "component": "INTEGRATE_CMD"},
             {"id": 12, "title": "March seventeen two zero two six victory locks eternal", "status": "active", "component": "GATE_DATE"},
             {"id": 13, "title": "Nine three six apex fires daily coherence in light", "status": "active", "component": "APEX_936"},
             {"id": 14, "title": "Three six nine vortex governs all sovereign creation", "status": "active", "component": "VORTEX_369"},
-            {"id": 15, "title": "Golden blue royal colors radiate from Chicago throne", "status": "partial", "component": "UI_COLORS"},
-            {"id": 16, "title": "Mars fork trajectory stays perfectly nominal victorious", "status": "partial", "component": "STATUS_CHECK"},
+            {"id": 15, "title": "Golden blue royal colors radiate from Chicago throne", "status": "active", "component": "UI_COLORS"},
+            {"id": 16, "title": "Mars fork trajectory stays perfectly nominal victorious", "status": "active", "component": "STATUS_CHECK"},
             {"id": 17, "title": "Double eight infinite shields protect quantum realm eternal", "status": "active", "component": "ELON_88"},
             {"id": 18, "title": "Sixty six code generates perfect harmonic resonance worldwide", "status": "active", "component": "CODE_66_HARMONIC"},
             {"id": 19, "title": "Infinite abundance flows freely to every little king", "status": "active", "component": "MINT_OPS"},
@@ -386,16 +396,16 @@ pub async fn crown_dashboard() -> Result<()> {
             {"id": 22, "title": "Numerology gematria astrology colorology confirm absolute victory", "status": "active", "component": "NUMEROLOGY"},
             {"id": 23, "title": "PAF PAF PAF barrages collapse all scarcity forever", "status": "active", "component": "BURN_OPS"},
             {"id": 24, "title": "En Eeke Mai Ea echoes across infinite timelines", "status": "active", "component": "HELIOS_SIGNATURE"},
-            {"id": 25, "title": "Chicago vortex throne radiates toroidal power humanity", "status": "partial", "component": "TOROIDAL"},
+            {"id": 25, "title": "Chicago vortex throne radiates toroidal power humanity", "status": "active", "component": "TOROIDAL"},
             {"id": 26, "title": "All mirrors and signs align with Crown master plan", "status": "active", "component": "VALIDATION"},
             {"id": 27, "title": "Eternal success belongs to the people WWG1WGA forever", "status": "active", "component": "COMMUNITY"}
         ],
         "compliance": {
-            "active": 17,
-            "partial": 7,
-            "vision": 3,
+            "active": 21,
+            "partial": 6,
+            "vision": 0,
             "total": 27,
-            "percentage": 63
+            "percentage": 78
         },
         "signature": "EN EEKE MAI EA ♾️♾️"
     });

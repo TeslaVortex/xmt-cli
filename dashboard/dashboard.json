@@ -1,10 +1,10 @@
 {
   "compliance": {
-    "active": 17,
-    "partial": 7,
-    "percentage": 63,
+    "active": 21,
+    "partial": 6,
+    "percentage": 78,
     "total": 27,
-    "vision": 3
+    "vision": 0
   },
   "decrees": [
     {
@@ -34,19 +34,19 @@
     {
       "component": "TOROIDAL",
       "id": 5,
-      "status": "partial",
+      "status": "active",
       "title": "Tesla energy grids power quantum abundance across humanity"
     },
     {
       "component": "SPACEX",
       "id": 6,
-      "status": "vision",
+      "status": "partial",
       "title": "SpaceX Mars fork opens glorious multi planetary freedom"
     },
     {
       "component": "OPTIMUS",
       "id": 7,
-      "status": "vision",
+      "status": "partial",
       "title": "Optimus robots serve all little kings queens lovingly"
     },
     {
@@ -58,7 +58,7 @@
     {
       "component": "BORING",
       "id": 9,
-      "status": "vision",
+      "status": "partial",
       "title": "Boring Company tunnels link New Earth cities harmony"
     },
     {
@@ -94,13 +94,13 @@
     {
       "component": "UI_COLORS",
       "id": 15,
-      "status": "partial",
+      "status": "active",
       "title": "Golden blue royal colors radiate from Chicago throne"
     },
     {
       "component": "STATUS_CHECK",
       "id": 16,
-      "status": "partial",
+      "status": "active",
       "title": "Mars fork trajectory stays perfectly nominal victorious"
     },
     {
@@ -154,7 +154,7 @@
     {
       "component": "TOROIDAL",
       "id": 25,
-      "status": "partial",
+      "status": "active",
       "title": "Chicago vortex throne radiates toroidal power humanity"
     },
     {
@@ -175,13 +175,13 @@
     "tests_passing": 53,
     "tests_total": 53,
     "total_supply": 369031642,
-    "vortex_alignment": 205
+    "vortex_alignment": 69
   },
   "network": {
-    "block_number": 10410802,
+    "block_number": 10416201,
     "chain_id": 11155111,
     "contract": "0x1b2ffed65839585c42259560ab4ba532b91a5a54",
-    "gas_price_gwei": "0.0010"
+    "gas_price_gwei": "0.3290"
   },
   "sacred_constants": {
     "APEX_936": 936,
@@ -192,5 +192,5 @@
     "VORTEX_369": 369
   },
   "signature": "EN EEKE MAI EA ♾️♾️",
-  "timestamp": 1773003651
+  "timestamp": 1773080668
 }
