@@ -22,6 +22,7 @@ mod dtqpe_poc;
 mod web3;
 mod contracts;
 mod bridge;
+mod xapi;
 
 #[derive(Parser)]
 #[command(name = "xmt-cli")]
@@ -71,9 +72,20 @@ enum Commands {
         #[arg(trailing_var_arg = true)]
         args: Vec<String>,
     },
+    /// XAPI Commands - X API v2 + Grok Oracle Integration
+    Xapi {
+        /// Subcommand: post, search, me, verify, oracle, models
+        #[arg(default_value = "help")]
+        subcommand: String,
+        /// Optional arguments for subcommand
+        #[arg(trailing_var_arg = true)]
+        args: Vec<String>,
+    },
 }
 
 fn main() {
+    dotenv::dotenv().ok();
+    
     let cli = Cli::parse();
 
     match &cli.command {
@@ -83,5 +95,6 @@ fn main() {
         Commands::Integrate { x_profile, helios_signature } => commands::integrate_command::integrate(&x_profile, *helios_signature),
         Commands::XMoneyIntegrate { action } => commands::xmoney_integrate::xmoney_integrate(action),
         Commands::Crown { subcommand, args } => commands::crown_command::crown_command(subcommand, args.clone()),
+        Commands::Xapi { subcommand, args } => commands::xapi_command::xapi_command(subcommand, args.clone()),
     }
 }
