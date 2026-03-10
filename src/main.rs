@@ -81,6 +81,8 @@ enum Commands {
         #[arg(trailing_var_arg = true)]
         args: Vec<String>,
     },
+    /// Abundance Drop - Auto-mint to EN EEKE MAI EA triggers
+    Abundance,
 }
 
 fn main() {
@@ -96,5 +98,6 @@ fn main() {
         Commands::XMoneyIntegrate { action } => commands::xmoney_integrate::xmoney_integrate(action),
         Commands::Crown { subcommand, args } => commands::crown_command::crown_command(subcommand, args.clone()),
         Commands::Xapi { subcommand, args } => commands::xapi_command::xapi_command(subcommand, args.clone()),
+        Commands::Abundance => commands::abundance_command::abundance_command(),
     }
 }

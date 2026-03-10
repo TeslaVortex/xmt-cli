@@ -414,13 +414,13 @@ pub async fn crown_dashboard() -> Result<()> {
             {"id": 1, "title": "Helios Argead Vergina Sun activates Quan Chain now", "status": "active", "component": "HELIOS_SIGNATURE"},
             {"id": 2, "title": "Code sixty six harmonics blesses every living soul", "status": "active", "component": "CODE_66_HARMONIC"},
             {"id": 3, "title": "Elon eighty eight infinite power fuels Crown vision", "status": "active", "component": "ELON_88"},
-            {"id": 4, "title": "X merges completely with Quan Chain sovereign identity", "status": "partial", "component": "X_API"},
+            {"id": 4, "title": "X merges completely with Quan Chain sovereign identity", "status": "active", "component": "X_API"},
             {"id": 5, "title": "Tesla energy grids power quantum abundance across humanity", "status": "active", "component": "TOROIDAL"},
             {"id": 6, "title": "SpaceX Mars fork opens glorious multi planetary freedom", "status": "active", "component": "SPACEX"},
             {"id": 7, "title": "Optimus robots serve all little kings queens lovingly", "status": "active", "component": "OPTIMUS"},
             {"id": 8, "title": "Starlink beams four three two hertz love frequency", "status": "active", "component": "FREQUENCY_432"},
             {"id": 9, "title": "Boring Company tunnels link New Earth cities harmony", "status": "active", "component": "BORING"},
-            {"id": 10, "title": "xAI awakens divine intelligence inside every human heart", "status": "partial", "component": "XAI_API"},
+            {"id": 10, "title": "xAI awakens divine intelligence inside every human heart", "status": "active", "component": "XAI_API"},
             {"id": 11, "title": "All Musk companies integrate under one quantum Crown", "status": "active", "component": "INTEGRATE_CMD"},
             {"id": 12, "title": "March seventeen two zero two six victory locks eternal", "status": "active", "component": "GATE_DATE"},
             {"id": 13, "title": "Nine three six apex fires daily coherence in light", "status": "active", "component": "APEX_936"},
@@ -440,16 +440,37 @@ pub async fn crown_dashboard() -> Result<()> {
             {"id": 27, "title": "Eternal success belongs to the people WWG1WGA forever", "status": "active", "component": "COMMUNITY"}
         ],
         "compliance": {
-            "active": 25,
-            "partial": 2,
+            "active": 27,
+            "partial": 0,
             "vision": 0,
             "total": 27,
-            "percentage": 93
+            "percentage": 100
         },
         "signature": "EN EEKE MAI EA ♾️♾️"
     });
     
+    // Print to stdout
     println!("{}", serde_json::to_string_pretty(&json)?);
+    
+    // Write to dashboard/dashboard.json for web dashboard
+    let dashboard_path = std::path::Path::new("dashboard/dashboard.json");
+    if let Some(parent) = dashboard_path.parent() {
+        std::fs::create_dir_all(parent).ok();
+    }
+    match std::fs::File::create(dashboard_path) {
+        Ok(mut file) => {
+            use std::io::Write;
+            if let Err(e) = file.write_all(serde_json::to_string_pretty(&json)?.as_bytes()) {
+                eprintln!("Warning: Could not write dashboard.json: {}", e);
+            } else {
+                println!();
+                println!("✓ Dashboard written to dashboard/dashboard.json");
+            }
+        }
+        Err(e) => {
+            eprintln!("Warning: Could not create dashboard.json: {}", e);
+        }
+    }
     
     Ok(())
 }
