@@ -105,9 +105,14 @@ validate_env() {
     
     local missing=0
     
-    if [ -z "$SEPOLIA_RPC_URL" ]; then
-        print_error "SEPOLIA_RPC_URL not set in .env"
+    # Check for RPC URL (accept either SEPOLIA_RPC_URL or BASE_RPC_URL)
+    if [ -z "$SEPOLIA_RPC_URL" ] && [ -z "$BASE_RPC_URL" ]; then
+        print_error "RPC_URL not set in .env (need SEPOLIA_RPC_URL or BASE_RPC_URL)"
         missing=1
+    else
+        # Use whichever is set
+        export SEPOLIA_RPC_URL="${SEPOLIA_RPC_URL:-$BASE_RPC_URL}"
+        print_success "RPC URL found"
     fi
     
     if [ -z "$PRIVATE_KEY" ]; then
@@ -115,9 +120,9 @@ validate_env() {
         missing=1
     fi
     
+    # CONTRACT_ADDRESS is optional for some commands
     if [ -z "$CONTRACT_ADDRESS" ]; then
-        print_error "CONTRACT_ADDRESS not set in .env"
-        missing=1
+        print_warning "CONTRACT_ADDRESS not set (some commands may fail)"
     fi
     
     if [ $missing -eq 1 ]; then
@@ -134,7 +139,7 @@ validate_env() {
 
 run_ritual() {
     print_section "🔮 RUNNING 936 APEX RITUAL"
-    $CLI_BINARY ritual
+    $CLI_BINARY ritual --apex $APEX_936
     echo ""
     read -p "Press Enter to continue..."
 }
