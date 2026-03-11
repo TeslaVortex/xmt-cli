@@ -9,7 +9,7 @@ pragma solidity ^0.8.20;
 //
 
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
 interface IVectorRegistry {
     function verifyVector(bytes32 vectorHash) external view returns (bool);
@@ -77,7 +77,7 @@ contract VectorMinter is Ownable, ReentrancyGuard {
         bool burningEnabled
     );
 
-    constructor(address _vectorRegistry, address _xmoney) {
+    constructor(address _vectorRegistry, address _xmoney) Ownable(msg.sender) {
         vectorRegistry = IVectorRegistry(_vectorRegistry);
         xmoney = IXMoney(_xmoney);
     }

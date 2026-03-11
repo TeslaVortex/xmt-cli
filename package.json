@@ -6,7 +6,9 @@
     "deploy:sepolia": "hardhat run scripts/deploy_vector_registry.js --network sepolia",
     "deploy:base-sepolia": "hardhat run scripts/deploy_vector_registry.js --network baseSepolia",
     "deploy:minter:sepolia": "hardhat run scripts/deploy_vector_minter.js --network sepolia",
-    "deploy:minter:base-sepolia": "hardhat run scripts/deploy_vector_minter.js --network baseSepolia"
+    "deploy:minter:base-sepolia": "hardhat run scripts/deploy_vector_minter.js --network baseSepolia",
+    "configure:minter:sepolia": "hardhat run scripts/configure_vector_minter.js --network sepolia",
+    "configure:minter:base-sepolia": "hardhat run scripts/configure_vector_minter.js --network baseSepolia"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
