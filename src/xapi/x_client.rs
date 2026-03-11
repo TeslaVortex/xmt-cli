@@ -7,7 +7,18 @@
 
 use anyhow::{Context, Result};
 use reqwest::Client;
+use serde::{Deserialize, Serialize};
 use serde_json::json;
+
+fn percent_encode(input: &str) -> String {
+    input
+        .chars()
+        .map(|c| match c {
+            'A'..='Z' | 'a'..='z' | '0'..='9' | '-' | '.' | '_' | '~' => c.to_string(),
+            _ => format!("%{:02X}", c as u8),
+        })
+        .collect()
+}
 
 use super::types::*;
 
@@ -57,12 +68,7 @@ impl XApiClient {
     }
 
     pub fn from_env() -> Result<Self> {
-        // Use Bearer Token (works perfectly for search!)
-        if let Ok(bearer_token) = std::env::var("X_API_BEARER_TOKEN") {
-            return Ok(Self::new(bearer_token));
-        }
-        
-        // Try OAuth 1.0a if no Bearer Token (for posting - not yet working)
+        // Prioritize OAuth 1.0a for posting capability
         if let (Ok(consumer_key), Ok(consumer_secret), Ok(access_token), Ok(access_token_secret)) = (
             std::env::var("X_API_CONSUMER_KEY"),
             std::env::var("X_API_CONSUMER_SECRET"),
@@ -77,14 +83,84 @@ impl XApiClient {
             ));
         }
         
-        anyhow::bail!("Neither X_API_BEARER_TOKEN nor OAuth 1.0a credentials found in environment")
+        // Fall back to Bearer Token (read-only)
+        if let Ok(bearer_token) = std::env::var("X_API_BEARER_TOKEN") {
+            return Ok(Self::new(bearer_token));
+        }
+        
+        anyhow::bail!("Neither OAuth 1.0a credentials nor X_API_BEARER_TOKEN found in environment")
     }
 
-    fn generate_oauth1_header(&self, _method: &str, _url: &str, _body: Option<&str>) -> Result<String> {
-        // OAuth 1.0a posting is complex and requires exact signature matching
-        // For now, use X's web interface or API tools for posting
-        // Bearer Token works great for search/monitoring (which we tested successfully!)
-        anyhow::bail!("OAuth 1.0a posting not yet implemented - use Bearer Token for search, or post via X web interface")
+    fn generate_oauth1_header(&self, method: &str, url: &str, _body: Option<&str>) -> Result<String> {
+        use hmac::{Hmac, Mac};
+        use sha1::Sha1;
+        use std::collections::BTreeMap;
+        
+        let consumer_key = self.consumer_key.as_ref()
+            .ok_or_else(|| anyhow::anyhow!("Consumer key not set"))?;
+        let consumer_secret = self.consumer_secret.as_ref()
+            .ok_or_else(|| anyhow::anyhow!("Consumer secret not set"))?;
+        let access_token_secret = self.access_token_secret.as_ref()
+            .ok_or_else(|| anyhow::anyhow!("Access token secret not set"))?;
+        
+        // Generate OAuth parameters
+        let timestamp = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)?
+            .as_secs()
+            .to_string();
+        
+        let nonce: String = (0..32)
+            .map(|_| format!("{:x}", rand::random::<u8>()))
+            .collect();
+        
+        // Build parameter map
+        let mut params = BTreeMap::new();
+        params.insert("oauth_consumer_key", consumer_key.as_str());
+        params.insert("oauth_nonce", &nonce);
+        params.insert("oauth_signature_method", "HMAC-SHA1");
+        params.insert("oauth_timestamp", &timestamp);
+        params.insert("oauth_token", &self.auth_token);
+        params.insert("oauth_version", "1.0");
+        
+        // Create parameter string
+        let param_string: String = params
+            .iter()
+            .map(|(k, v)| format!("{}={}", percent_encode(k), percent_encode(v)))
+            .collect::<Vec<_>>()
+            .join("&");
+        
+        // Create signature base string
+        let base_string = format!(
+            "{}&{}&{}",
+            method.to_uppercase(),
+            percent_encode(url),
+            percent_encode(&param_string)
+        );
+        
+        // Create signing key
+        let signing_key = format!(
+            "{}&{}",
+            percent_encode(consumer_secret),
+            percent_encode(access_token_secret)
+        );
+        
+        // Generate signature
+        type HmacSha1 = Hmac<Sha1>;
+        let mut mac = HmacSha1::new_from_slice(signing_key.as_bytes())?;
+        mac.update(base_string.as_bytes());
+        let signature = base64::encode(mac.finalize().into_bytes());
+        
+        // Build Authorization header
+        let auth_header = format!(
+            r#"OAuth oauth_consumer_key="{}", oauth_nonce="{}", oauth_signature="{}", oauth_signature_method="HMAC-SHA1", oauth_timestamp="{}", oauth_token="{}", oauth_version="1.0""#,
+            percent_encode(consumer_key),
+            percent_encode(&nonce),
+            percent_encode(&signature),
+            percent_encode(&timestamp),
+            percent_encode(&self.auth_token)
+        );
+        
+        Ok(auth_header)
     }
 
     /// POST /2/tweets - Post the daily 936 AM/PM 27 Decrees ritual
