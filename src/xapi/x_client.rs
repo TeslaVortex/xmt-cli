@@ -113,6 +113,12 @@ impl XApiClient {
             .map(|_| format!("{:x}", rand::random::<u8>()))
             .collect();
         
+        println!("🔐 OAuth 1.0a Debug:");
+        println!("   Method: {}", method);
+        println!("   URL: {}", url);
+        println!("   Timestamp: {}", timestamp);
+        println!("   Nonce: {}", nonce);
+        
         // Build parameter map
         let mut params = BTreeMap::new();
         params.insert("oauth_consumer_key", consumer_key.as_str());
@@ -129,6 +135,8 @@ impl XApiClient {
             .collect::<Vec<_>>()
             .join("&");
         
+        println!("   Parameter String: {}", param_string);
+        
         // Create signature base string
         let base_string = format!(
             "{}&{}&{}",
@@ -137,12 +145,16 @@ impl XApiClient {
             percent_encode(&param_string)
         );
         
-        // Create signing key
+        println!("   Signature Base String: {}", base_string);
+        
+        // Create signing key (DON'T percent encode secrets!)
         let signing_key = format!(
             "{}&{}",
-            percent_encode(consumer_secret),
-            percent_encode(access_token_secret)
+            consumer_secret,
+            access_token_secret
         );
+        
+        println!("   Signing Key Length: {} bytes", signing_key.len());
         
         // Generate signature
         type HmacSha1 = Hmac<Sha1>;
@@ -150,15 +162,19 @@ impl XApiClient {
         mac.update(base_string.as_bytes());
         let signature = base64::encode(mac.finalize().into_bytes());
         
-        // Build Authorization header
+        println!("   Signature: {}", signature);
+        
+        // Build Authorization header (DON'T quote values!)
         let auth_header = format!(
             r#"OAuth oauth_consumer_key="{}", oauth_nonce="{}", oauth_signature="{}", oauth_signature_method="HMAC-SHA1", oauth_timestamp="{}", oauth_token="{}", oauth_version="1.0""#,
-            percent_encode(consumer_key),
-            percent_encode(&nonce),
+            consumer_key,
+            nonce,
             percent_encode(&signature),
-            percent_encode(&timestamp),
-            percent_encode(&self.auth_token)
+            timestamp,
+            &self.auth_token
         );
+        
+        println!("   Authorization Header: {}", auth_header);
         
         Ok(auth_header)
     }
