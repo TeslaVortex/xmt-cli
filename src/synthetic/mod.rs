@@ -2,6 +2,14 @@ use candle_core::{Device, Tensor};
 use candle_transformers::models::bert::{BertModel, Config};
 use anyhow::{Result, Context};
 
+pub mod simulated;
+pub mod onchain;
+pub mod pipeline;
+
+pub use simulated::SimulatedChain;
+pub use onchain::OnChainOperations;
+pub use pipeline::SyntheticPipeline;
+
 pub async fn generate_toroidal_vector(intent: &str) -> Result<Vec<f32>> {
     let device = Device::Cpu;
     
