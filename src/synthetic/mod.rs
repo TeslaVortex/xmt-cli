@@ -75,7 +75,7 @@ pub fn store_vector_locally(intent: &str, vector: &[f32]) -> Result<()> {
     use std::fs;
     use std::path::Path;
     
-    let vectors_dir = Path::new(".xmt-vectors");
+    let vectors_dir = Path::new("Local_storage/.xmt-vectors");
     fs::create_dir_all(vectors_dir)?;
     
     let filename = intent
@@ -106,7 +106,7 @@ pub fn store_llm_enhanced_vector(original_intent: &str, expanded_decree: &str, v
     use std::fs;
     use std::path::Path;
     
-    let vectors_dir = Path::new(".xmt-vectors");
+    let vectors_dir = Path::new("Local_storage/.xmt-vectors");
     fs::create_dir_all(vectors_dir)?;
     
     let filename = original_intent

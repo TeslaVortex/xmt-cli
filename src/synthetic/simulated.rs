@@ -259,7 +259,7 @@ pub fn store_simulated_receipt(intent: &str, receipt: &SimulatedReceipt) -> Resu
     use std::fs;
     use std::path::Path;
 
-    let sim_dir = Path::new(".xmt-vectors/simulated");
+    let sim_dir = Path::new("Local_storage/.xmt-vectors/simulated");
     fs::create_dir_all(sim_dir)?;
 
     let filename = intent

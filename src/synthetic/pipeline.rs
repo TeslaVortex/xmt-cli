@@ -324,7 +324,7 @@ fn store_pipeline_result(
     use std::fs;
     use std::path::Path;
 
-    let dir = Path::new(".xmt-vectors/pipeline");
+    let dir = Path::new("Local_storage/.xmt-vectors/pipeline");
     fs::create_dir_all(dir)?;
 
     let filename = intent
@@ -365,7 +365,7 @@ fn store_full_ritual_result(result: &PipelineResult) -> Result<()> {
     use std::fs;
     use std::path::Path;
 
-    let dir = Path::new(".xmt-vectors/rituals");
+    let dir = Path::new("Local_storage/.xmt-vectors/rituals");
     fs::create_dir_all(dir)?;
 
     let filename = result.intent

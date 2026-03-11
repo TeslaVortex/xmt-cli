@@ -318,7 +318,7 @@ OUTPUT:
   - 384-dimensional toroidal vector
   - Vector hash registered on-chain
   - Mint/burn transactions executed
-  - Stored in .xmt-vectors/pipeline/ and .xmt-vectors/rituals/
+  - Stored in Local_storage/.xmt-vectors/pipeline/ and Local_storage/.xmt-vectors/rituals/
   - Zero marginal cost, pure Rust + local LLM + sovereign chain
 
 SACRED CONSTANTS:
