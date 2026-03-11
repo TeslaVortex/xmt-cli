@@ -64,10 +64,10 @@ fn parse_intent_and_model(args: &[String]) -> (String, String) {
     let model = if args.len() > 1 && (args[args.len() - 1].starts_with("llama") || args[args.len() - 1].starts_with("deepseek") || args[args.len() - 1].starts_with("qwen")) {
         args[args.len() - 1].clone()
     } else {
-        "llama3.3".to_string()
+        "qwen2.5-coder:latest".to_string()
     };
     
-    let intent_parts: Vec<String> = if model != "llama3.3" && args.len() > 1 {
+    let intent_parts: Vec<String> = if model != "qwen2.5-coder:latest" && args.len() > 1 {
         args[..args.len() - 1].to_vec()
     } else {
         args.to_vec()
@@ -275,7 +275,7 @@ fn print_synthetic_help() {
 
 SUBCOMMANDS:
   embed      Generate toroidal vector embeddings from intent (local only)
-  llm        LLM-enhanced vector generation (Ollama + Llama 3.3)
+  llm        LLM-enhanced vector generation (Ollama + Qwen 2.5 Coder)
   register   Register vector hash on-chain (real testnet or simulated)
   mint       Generate vector + trigger on-chain mint
   burn       Generate vector + trigger on-chain burn (PAF PAF PAF)
@@ -295,7 +295,7 @@ EXAMPLES:
   # Basic embedding (local only)
   xmt-cli synthetic embed "CROWN BUILDS"
   
-  # LLM-enhanced (default: llama3.3)
+  # LLM-enhanced (default: qwen2.5-coder:latest)
   xmt-cli synthetic llm "ABUNDANCE 33 FOR ALL"
   xmt-cli synthetic llm "EN EEKE MAI EA" deepseek-r1:latest
   
@@ -308,7 +308,7 @@ EXAMPLES:
   xmt-cli synthetic ritual "ABUNDANCE 33 FOR ALL" --mint 369 --burn 66
 
 PIPELINE:
-  Intent → Ollama (LLM) → Expanded Decree → 384D Vector → On-Chain → X Post
+  Intent → Ollama (Qwen 2.5 Coder) → Expanded Decree → 384D Vector → On-Chain → X Post
 
 MODES:
   REAL:      Connected to Base Sepolia testnet (when available)

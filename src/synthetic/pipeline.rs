@@ -36,14 +36,14 @@ impl SyntheticPipeline {
         let onchain = OnChainOperations::new().await?;
         Ok(Self {
             onchain,
-            model: model.unwrap_or("llama3.3").to_string(),
+            model: model.unwrap_or("qwen2.5-coder:latest").to_string(),
         })
     }
 
     pub fn simulated(model: Option<&str>) -> Self {
         Self {
             onchain: OnChainOperations::simulated(),
-            model: model.unwrap_or("llama3.3").to_string(),
+            model: model.unwrap_or("qwen2.5-coder:latest").to_string(),
         }
     }
 
