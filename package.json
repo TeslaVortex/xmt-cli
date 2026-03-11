@@ -4,7 +4,9 @@
   "description": "VectorRegistry smart contract deployment",
   "scripts": {
     "deploy:sepolia": "hardhat run scripts/deploy_vector_registry.js --network sepolia",
-    "deploy:base-sepolia": "hardhat run scripts/deploy_vector_registry.js --network baseSepolia"
+    "deploy:base-sepolia": "hardhat run scripts/deploy_vector_registry.js --network baseSepolia",
+    "deploy:minter:sepolia": "hardhat run scripts/deploy_vector_minter.js --network sepolia",
+    "deploy:minter:base-sepolia": "hardhat run scripts/deploy_vector_minter.js --network baseSepolia"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",

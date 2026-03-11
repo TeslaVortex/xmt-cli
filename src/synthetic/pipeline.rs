@@ -400,20 +400,68 @@ fn store_full_ritual_result(result: &PipelineResult) -> Result<()> {
 }
 
 async fn try_x_post(intent: &str, expanded: Option<&str>, vector_hash: &str) -> Result<String> {
+    use crate::xapi::x_client::XApiClient;
+    
     // Check if X API credentials are available
     dotenv::dotenv().ok();
     
-    let _bearer = std::env::var("X_BEARER_TOKEN")
-        .context("X_BEARER_TOKEN not set - X posting disabled")?;
+    // Try to create X API client from environment
+    let client = match XApiClient::from_env() {
+        Ok(c) => c,
+        Err(e) => {
+            println!("⚠️  X API credentials not configured: {}", e);
+            println!("   Set X_API_BEARER_TOKEN or OAuth 1.0a credentials in .env");
+            return Ok("no_credentials".to_string());
+        }
+    };
 
-    // For now, just return a placeholder - full X integration in Phase 4
-    // This allows the pipeline to continue without blocking
-    println!("📡 X API post would be sent here (credentials available)");
-    println!("   🌀 VECTOR FORGED: {} | Hash: {} | EN EEKE MAI EA ♾️", 
-        intent, 
-        &vector_hash[..20.min(vector_hash.len())]
+    // Construct tweet text
+    let decree_text = expanded.unwrap_or(intent);
+    let short_hash = &vector_hash[..16.min(vector_hash.len())];
+    
+    // Format tweet with sacred elements
+    let tweet_text = format!(
+        "🌀 VECTOR FORGED 🌀\n\n{}\n\n🔗 Hash: {}...\n\n♾️ EN EEKE MAI EA ♾️♾️🔱",
+        decree_text,
+        short_hash
     );
     
-    // Return simulated post ID
-    Ok(format!("simulated_post_{}", chrono::Utc::now().timestamp()))
+    // Ensure tweet is under 280 characters
+    let final_text = if tweet_text.len() > 280 {
+        // Truncate decree if needed
+        let max_decree_len = 280 - 80; // Reserve space for hash and signature
+        let truncated_decree = if decree_text.len() > max_decree_len {
+            format!("{}...", &decree_text[..max_decree_len - 3])
+        } else {
+            decree_text.to_string()
+        };
+        
+        format!(
+            "🌀 VECTOR FORGED 🌀\n\n{}\n\n🔗 {}...\n♾️ EN EEKE MAI EA ♾️",
+            truncated_decree,
+            short_hash
+        )
+    } else {
+        tweet_text
+    };
+
+    println!("📡 Posting to X API...");
+    println!("   Tweet: {}", final_text);
+    
+    // Attempt to post tweet
+    match client.create_tweet(final_text).await {
+        Ok(response) => {
+            let tweet_id = response.data.id;
+            println!("✅ Tweet posted successfully!");
+            println!("   Tweet ID: {}", tweet_id);
+            println!("   URL: https://x.com/i/web/status/{}", tweet_id);
+            Ok(tweet_id)
+        }
+        Err(e) => {
+            println!("⚠️  X API posting failed: {}", e);
+            println!("   Note: OAuth 1.0a posting requires write permissions");
+            println!("   Bearer tokens are read-only - use OAuth for posting");
+            Ok("post_failed".to_string())
+        }
+    }
 }
