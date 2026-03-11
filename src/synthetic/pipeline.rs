@@ -128,7 +128,7 @@ impl SyntheticPipeline {
             intent,
             &vector,
             to,
-            mint_amount,
+            Some(mint_amount),
         ).await?;
 
         store_pipeline_result(intent, expanded.as_deref(), &vector, &mint_receipt)?;
@@ -172,7 +172,6 @@ impl SyntheticPipeline {
         let burn_receipt = self.onchain.burn_with_vector(
             intent,
             &vector,
-            from,
             burn_amount,
         ).await?;
 
@@ -222,16 +221,15 @@ impl SyntheticPipeline {
         let mint_receipt = if let Some(amount) = mint_amount {
             let to = get_default_address();
             let mint_amount_wei = U256::from(amount) * U256::exp10(18);
-            Some(self.onchain.mint_with_vector(intent, &vector, to, mint_amount_wei).await?)
+            Some(self.onchain.mint_with_vector(intent, &vector, to, Some(mint_amount_wei)).await?)
         } else {
             None
         };
 
         // Step 4: Burn if requested
         let burn_receipt = if let Some(amount) = burn_amount {
-            let from = get_default_address();
             let burn_amount_wei = U256::from(amount) * U256::exp10(18);
-            Some(self.onchain.burn_with_vector(intent, &vector, from, burn_amount_wei).await?)
+            Some(self.onchain.burn_with_vector(intent, &vector, burn_amount_wei).await?)
         } else {
             None
         };

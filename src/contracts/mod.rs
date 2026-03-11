@@ -1,5 +1,6 @@
 pub mod xmoney;
 pub mod vector_registry;
+pub mod vector_minter;
 
 use ethers::prelude::*;
 

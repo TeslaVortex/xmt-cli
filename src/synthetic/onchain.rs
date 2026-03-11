@@ -13,6 +13,7 @@ use std::sync::Arc;
 use crate::web3::Web3Provider;
 use crate::web3::signer::WalletSigner;
 use crate::contracts::vector_registry::{VectorRegistry, hash_vector_to_bytes32};
+use crate::contracts::vector_minter::VectorMinter;
 use crate::bridge::XMoneyBridge;
 use super::simulated::{SimulatedChain, SimulatedReceipt, store_simulated_receipt};
 
@@ -23,6 +24,7 @@ pub enum ChainMode {
         private_key: String,
         registry_address: Address,
         xmoney_address: Address,
+        minter_address: Option<Address>,
     },
     Simulated(SimulatedChain),
 }
@@ -78,6 +80,11 @@ impl OnChainOperations {
             .parse()
             .context("Invalid VECTOR_REGISTRY_ADDRESS")?;
 
+        // VectorMinter address - optional
+        let minter_address = std::env::var("VECTOR_MINTER_ADDRESS")
+            .ok()
+            .and_then(|addr| addr.parse().ok());
+
         // Test connection
         let provider = Web3Provider::new(&rpc_url, chain_id).await?;
         let _block = provider.get_block_number().await?;
@@ -91,6 +98,7 @@ impl OnChainOperations {
             private_key,
             registry_address,
             xmoney_address,
+            minter_address,
         })
     }
 
@@ -149,38 +157,44 @@ impl OnChainOperations {
         intent: &str,
         vector: &[f32],
         to: Address,
-        amount: U256,
+        amount: Option<U256>,
     ) -> Result<OnChainReceipt> {
         let vector_hash = hash_vector_to_bytes32(vector);
 
         match &self.mode {
-            ChainMode::Real { rpc_url, chain_id, private_key, xmoney_address, .. } => {
-                let provider = Web3Provider::new(rpc_url, *chain_id).await?;
-                let signer = WalletSigner::new(private_key, *chain_id)?;
-                let bridge = XMoneyBridge::new(
-                    *xmoney_address,
-                    &provider,
-                    signer,
-                ).await?;
+            ChainMode::Real { rpc_url, chain_id, private_key, minter_address, .. } => {
+                // Check if VectorMinter is deployed
+                if let Some(minter_addr) = minter_address {
+                    let provider = Web3Provider::new(rpc_url, *chain_id).await?;
+                    let signer = WalletSigner::new(private_key, *chain_id)?;
+                    let client = Arc::new(signer.with_provider(provider.provider()));
+                    let minter = VectorMinter::new(*minter_addr, client);
 
-                println!("📡 Executing mint on-chain...");
-                let receipt = bridge.mint(to, amount).await?;
+                    println!("📡 Executing mint with vector on-chain...");
+                    let receipt = minter.mint_with_vector(vector_hash, to, amount).await?;
 
-                println!("✅ Mint executed on REAL chain");
-                println!("   To: {:?}", to);
-                println!("   Amount: {}", amount);
-                println!("   Tx: {:?}", receipt.transaction_hash);
+                    println!("✅ Mint executed on REAL chain via VectorMinter");
+                    println!("   To: {:?}", to);
+                    println!("   Tx: {:?}", receipt.transaction_hash);
+                    println!("   Block: {:?}", receipt.block_number);
 
-                Ok(OnChainReceipt {
-                    transaction_hash: receipt.transaction_hash,
-                    block_number: receipt.block_number.unwrap_or_default(),
-                    gas_used: receipt.gas_used.unwrap_or_default(),
-                    status: receipt.status.map(|s| s.as_u64() == 1).unwrap_or(false),
-                    simulation_mode: false,
-                })
+                    Ok(OnChainReceipt {
+                        transaction_hash: receipt.transaction_hash,
+                        block_number: receipt.block_number.unwrap_or_default(),
+                        gas_used: receipt.gas_used.unwrap_or_default(),
+                        status: receipt.status.map(|s| s.as_u64() == 1).unwrap_or(false),
+                        simulation_mode: false,
+                    })
+                } else {
+                    println!("⚠️  VectorMinter not deployed, using simulation");
+                    let sim = SimulatedChain::new();
+                    let receipt = sim.mint_with_vector(to, amount.unwrap_or(U256::from(369)), H256::from(vector_hash))?;
+                    store_simulated_receipt(intent, &receipt)?;
+                    Ok(OnChainReceipt::from_simulated(receipt))
+                }
             }
             ChainMode::Simulated(sim) => {
-                let receipt = sim.mint_with_vector(to, amount, H256::from(vector_hash))?;
+                let receipt = sim.mint_with_vector(to, amount.unwrap_or(U256::from(369)), H256::from(vector_hash))?;
                 store_simulated_receipt(intent, &receipt)?;
                 Ok(OnChainReceipt::from_simulated(receipt))
             }
@@ -191,38 +205,46 @@ impl OnChainOperations {
         &self,
         intent: &str,
         vector: &[f32],
-        from: Address,
         amount: U256,
     ) -> Result<OnChainReceipt> {
         let vector_hash = hash_vector_to_bytes32(vector);
 
         match &self.mode {
-            ChainMode::Real { rpc_url, chain_id, private_key, xmoney_address, .. } => {
-                let provider = Web3Provider::new(rpc_url, *chain_id).await?;
-                let signer = WalletSigner::new(private_key, *chain_id)?;
-                let bridge = XMoneyBridge::new(
-                    *xmoney_address,
-                    &provider,
-                    signer,
-                ).await?;
+            ChainMode::Real { rpc_url, chain_id, private_key, minter_address, .. } => {
+                // Check if VectorMinter is deployed
+                if let Some(minter_addr) = minter_address {
+                    let provider = Web3Provider::new(rpc_url, *chain_id).await?;
+                    let signer = WalletSigner::new(private_key, *chain_id)?;
+                    let client = Arc::new(signer.with_provider(provider.provider()));
+                    let minter = VectorMinter::new(*minter_addr, client);
 
-                println!("📡 Executing burn on-chain...");
-                let receipt = bridge.burn(amount).await?;
+                    println!("📡 Executing burn with vector on-chain...");
+                    let receipt = minter.burn_with_vector(vector_hash, amount).await?;
 
-                println!("✅ Burn executed on REAL chain - PAF PAF PAF");
-                println!("   Amount: {} obliterated", amount);
-                println!("   Tx: {:?}", receipt.transaction_hash);
+                    println!("✅ Burn executed on REAL chain via VectorMinter");
+                    println!("   Amount: {}", amount);
+                    println!("   Tx: {:?}", receipt.transaction_hash);
+                    println!("   Block: {:?}", receipt.block_number);
+                    println!("   PAF PAF PAF 🔥");
 
-                Ok(OnChainReceipt {
-                    transaction_hash: receipt.transaction_hash,
-                    block_number: receipt.block_number.unwrap_or_default(),
-                    gas_used: receipt.gas_used.unwrap_or_default(),
-                    status: receipt.status.map(|s| s.as_u64() == 1).unwrap_or(false),
-                    simulation_mode: false,
-                })
+                    Ok(OnChainReceipt {
+                        transaction_hash: receipt.transaction_hash,
+                        block_number: receipt.block_number.unwrap_or_default(),
+                        gas_used: receipt.gas_used.unwrap_or_default(),
+                        status: receipt.status.map(|s| s.as_u64() == 1).unwrap_or(false),
+                        simulation_mode: false,
+                    })
+                } else {
+                    println!("⚠️  VectorMinter not deployed, using simulation");
+                    let sim = SimulatedChain::new();
+                    let signer_addr = WalletSigner::new(private_key, *chain_id)?.address();
+                    let receipt = sim.burn_with_vector(signer_addr, amount, H256::from(vector_hash))?;
+                    store_simulated_receipt(intent, &receipt)?;
+                    Ok(OnChainReceipt::from_simulated(receipt))
+                }
             }
             ChainMode::Simulated(sim) => {
-                let receipt = sim.burn_with_vector(from, amount, H256::from(vector_hash))?;
+                let receipt = sim.burn_with_vector(Address::zero(), amount, H256::from(vector_hash))?;
                 store_simulated_receipt(intent, &receipt)?;
                 Ok(OnChainReceipt::from_simulated(receipt))
             }
