@@ -40,6 +40,7 @@ Run `cargo run -- ritual --apex 936` and the 27 Decrees echo across the quantum 
 - **🎭 X Profile Integration** — Connect your @username to blockchain wallet addresses
 - **⚡ Daily Rituals** — Execute 936 apex rituals for coherence and abundance
 - **🌉 Bridge Operations** — Seamless token operations between layers
+- **🌀 Synthetic Vectors** — Zero-cost 384D toroidal embeddings with on-chain storage ([See SYNTHETIC_README.md](SYNTHETIC_README.md))
 
 ### ✨ Why This Exists
 
@@ -207,6 +208,7 @@ xmt-cli x-money-integrate --action burn
 
 ## 📚 Documentation
 
+- 🌀 [**SYNTHETIC Module**](SYNTHETIC_README.md) - **Zero-cost toroidal vector generator + on-chain pipeline**
 - 📊 [100% Coherence Report](docs/100_PERCENT_COHERENCE_REPORT.md) - Complete test results and validation
 - 🌀 [QFS 369 Toroidal Infrastructure](docs/QFS_369_TOROIDAL_INFRASTRUCTURE.md) - Quantum Financial System architecture
 - 📜 [27 Decrees](docs/27_decrees.md) - Sovereign abundance protocols and sacred laws
