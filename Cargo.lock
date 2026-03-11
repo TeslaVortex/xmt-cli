@@ -4820,6 +4820,7 @@ name = "xmt-cli"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "base64 0.21.7",
  "candle-core",
  "candle-transformers",
  "chrono",
@@ -4828,9 +4829,12 @@ dependencies = [
  "dotenv",
  "ethers",
  "hex",
+ "hmac",
+ "rand 0.8.5",
  "reqwest",
  "serde",
  "serde_json",
+ "sha1",
  "sha2",
  "tokio",
  "tracing",

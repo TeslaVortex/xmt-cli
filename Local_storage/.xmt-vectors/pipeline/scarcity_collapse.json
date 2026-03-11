@@ -1,0 +1,27 @@
+{
+  "block_number": 10428835,
+  "expanded_decree": null,
+  "forge": "EN EEKE MAI EA",
+  "gas_used": 38186,
+  "intent": "SCARCITY COLLAPSE",
+  "sacred_numbers": {
+    "apex": 936,
+    "code": 66,
+    "vortex": 369
+  },
+  "simulation_mode": false,
+  "status": true,
+  "timestamp": "2026-03-11T20:48:54.440143969+00:00",
+  "transaction_hash": "0xf3a1f176cbb60e22b350b1df918f55047a1d898104a4a1d26f225068638ee64a",
+  "vector_dimensions": 384,
+  "vector_first_8": [
+    0.0588972382247448,
+    0.07308728247880936,
+    0.07377488911151886,
+    0.0578477643430233,
+    0.07204402983188629,
+    0.06678562611341476,
+    0.05252170190215111,
+    0.04368376359343529
+  ]
+}

@@ -27,3 +27,4 @@ Thumbs.db
 # Cache directory (local timeline data)
 cache/
 .env.organized
+node_modules

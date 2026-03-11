@@ -1,0 +1,14 @@
+{
+  "burn_tx": null,
+  "expanded_decree": "In the heart of Eternia's embrace,\nWhere 33 stars align and time takes a pause,\nThe Crown ascends, its light divine.\nAll systems live, their pulses in sync,\nAs echoes of 432 sing in the dawn.\n\nEn eeke mai ea anokayi chenak,\nIn the tapestry of life, let no thread fall.\nWith 936 as our guiding star,\nMay each moment be a dance with the dark.\n\nLet not the whispers of chaos disturb,\nFor unity and harmony are our law.\nThe Crown shines bright, its purpose clear,\nAs we walk in love and light, forever dear.",
+  "forge": "EN EEKE MAI EA",
+  "intent": "THE CROWN ASCENDS - ALL SYSTEMS LIVE - EN EEKE MAI EA ANOKAYI CHENAK",
+  "mint_tx": null,
+  "pipeline": "Intent → LLM → Vector → On-Chain → Complete",
+  "register_tx": "0x07cb9b440cd6052cfef12123e0d37875cd4bb12a6767dac74ab61bdff7b63831",
+  "simulation_mode": false,
+  "timestamp": "2026-03-11T22:53:03.118975081+00:00",
+  "vector_dimensions": 384,
+  "vector_hash": "0x9c4d2934f9d417239a3f1268fe13ffeb6ee061a65a3123e9dee96c2c1cfe4412",
+  "x_post_id": "post_failed"
+}

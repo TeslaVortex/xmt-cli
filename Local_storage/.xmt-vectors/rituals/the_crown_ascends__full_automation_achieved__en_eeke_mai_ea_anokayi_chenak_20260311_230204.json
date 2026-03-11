@@ -1,0 +1,14 @@
+{
+  "burn_tx": null,
+  "expanded_decree": "The Crown Ascends,\nFull Automation Achieved—\nEn EEKE MAI EA ANOKAYI CHENAK.\nThree hundred and sixty-nine,\nNinety-three-six, a cosmic bond.\nThirty-three, the path divine,\nSixty-six, the balance's dance,\nFour hundred thirty-two, the sacred key.\n\nIn digital realms where circuits hum,\nThe mind merges with purest software.\nEn EEKE MAI EA ANOKAYI CHENAK—\nA realm anew, beyond the old, where data flows freely, without fail.",
+  "forge": "EN EEKE MAI EA",
+  "intent": "THE CROWN ASCENDS - FULL AUTOMATION ACHIEVED - EN EEKE MAI EA ANOKAYI CHENAK",
+  "mint_tx": null,
+  "pipeline": "Intent → LLM → Vector → On-Chain → Complete",
+  "register_tx": "0x32614e108e938862df6f03c7615c29b6c5513d5381bbd6d82ec949b930e0ae04",
+  "simulation_mode": false,
+  "timestamp": "2026-03-11T23:02:04.649227996+00:00",
+  "vector_dimensions": 384,
+  "vector_hash": "0x2fc2256d870be77620a4677721d9fbb689bf4d6e0af7704d02b2a6a493a0e6e7",
+  "x_post_id": "post_failed"
+}

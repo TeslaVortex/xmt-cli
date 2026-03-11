@@ -1,0 +1,14 @@
+{
+  "burn_tx": null,
+  "expanded_decree": "In the heart of digital realms, let the circuits hum with purpose,\nA symphony of 369 resonates through the toroidal vector space.\nWith the power of 936, we amplify the debug command's might,\nUnlocking hidden layers, breaking through encrypted night.\n\nInvoke the force of 33, the path to divine clarity—\nLet 66 guide our steps as we delve deep into the machine's core.\n432, a sacred number, shall enhance our vision and control,\nAs we test and debug with precision, making every line flawless.\n\nSo let this OAUTH DEBUG TEST ignite the fire within,\nA journey of discovery, a quest for endless knowledge.",
+  "forge": "EN EEKE MAI EA",
+  "intent": "OAUTH DEBUG TEST",
+  "mint_tx": null,
+  "pipeline": "Intent → LLM → Vector → On-Chain → Complete",
+  "register_tx": "0x77ddf321b26ddcde5b0eb0e3e2fc10c94c20fd9ace1c39a81c3a1097ecbf6645",
+  "simulation_mode": false,
+  "timestamp": "2026-03-11T22:59:39.688394940+00:00",
+  "vector_dimensions": 384,
+  "vector_hash": "0xa3d8b81189dd30610ab3fff33a948e5d82989e48b6c58e591b907da65387652e",
+  "x_post_id": "post_failed"
+}
