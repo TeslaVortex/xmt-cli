@@ -17,6 +17,30 @@ pub async fn generate_toroidal_vector(intent: &str) -> Result<Vec<f32>> {
     Ok(embedding)
 }
 
+pub async fn generate_llm_enhanced_vector(intent: &str, model: &str) -> Result<(String, Vec<f32>)> {
+    use crate::ollama;
+    
+    let device = Device::Cpu;
+    
+    println!("🔮 Initializing LLM-Enhanced Toroidal Vector Forge...");
+    println!("📜 Original Intent: {}", intent);
+    
+    let expanded_decree = ollama::expand_intent_with_llm(intent, model).await?;
+    
+    println!("\n⚡ EXPANDED DECREE:");
+    println!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+    println!("{}", expanded_decree);
+    println!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
+    
+    let embedding = create_local_embedding(&expanded_decree, &device)
+        .context("Failed to generate embedding")?;
+    
+    println!("✨ Toroidal Vector Generated: {} dimensions", embedding.len());
+    println!("🌀 First 8 components: {:?}", &embedding[..8.min(embedding.len())]);
+    
+    Ok((expanded_decree, embedding))
+}
+
 fn create_local_embedding(text: &str, device: &Device) -> Result<Vec<f32>> {
     let text_bytes = text.as_bytes();
     let mut embedding = Vec::with_capacity(384);
@@ -66,6 +90,40 @@ pub fn store_vector_locally(intent: &str, vector: &[f32]) -> Result<()> {
     fs::write(&filepath, serde_json::to_string_pretty(&data)?)?;
     
     println!("💾 Vector stored: {}", filepath.display());
+    
+    Ok(())
+}
+
+pub fn store_llm_enhanced_vector(original_intent: &str, expanded_decree: &str, vector: &[f32], model: &str) -> Result<()> {
+    use std::fs;
+    use std::path::Path;
+    
+    let vectors_dir = Path::new(".xmt-vectors");
+    fs::create_dir_all(vectors_dir)?;
+    
+    let filename = original_intent
+        .chars()
+        .filter(|c| c.is_alphanumeric() || c.is_whitespace())
+        .collect::<String>()
+        .replace(' ', "_")
+        .to_lowercase();
+    
+    let filepath = vectors_dir.join(format!("{}_llm.json", filename));
+    
+    let data = serde_json::json!({
+        "original_intent": original_intent,
+        "expanded_decree": expanded_decree,
+        "vector": vector,
+        "dimensions": vector.len(),
+        "model": model,
+        "timestamp": chrono::Utc::now().to_rfc3339(),
+        "forge": "EN EEKE MAI EA",
+        "pipeline": "xmt-cli → Ollama → Toroidal Vector"
+    });
+    
+    fs::write(&filepath, serde_json::to_string_pretty(&data)?)?;
+    
+    println!("💾 LLM-Enhanced Vector stored: {}", filepath.display());
     
     Ok(())
 }

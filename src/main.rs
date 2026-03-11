@@ -24,6 +24,7 @@ mod contracts;
 mod bridge;
 mod xapi;
 mod synthetic;
+mod ollama;
 
 #[derive(Parser)]
 #[command(name = "xmt-cli")]
