@@ -21,3 +21,4 @@ pub mod web3;
 pub mod contracts;
 pub mod bridge;
 pub mod xapi;
+pub mod synthetic;

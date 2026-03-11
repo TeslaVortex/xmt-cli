@@ -23,6 +23,7 @@ mod web3;
 mod contracts;
 mod bridge;
 mod xapi;
+mod synthetic;
 
 #[derive(Parser)]
 #[command(name = "xmt-cli")]
@@ -83,6 +84,15 @@ enum Commands {
     },
     /// Abundance Drop - Auto-mint to EN EEKE MAI EA triggers
     Abundance,
+    /// Synthetic - Zero-Cost Local Vector Generator (Candle.rs)
+    Synthetic {
+        /// Subcommand: embed
+        #[arg(default_value = "help")]
+        subcommand: String,
+        /// Optional arguments for subcommand
+        #[arg(trailing_var_arg = true)]
+        args: Vec<String>,
+    },
 }
 
 fn main() {
@@ -99,5 +109,6 @@ fn main() {
         Commands::Crown { subcommand, args } => commands::crown_command::crown_command(subcommand, args.clone()),
         Commands::Xapi { subcommand, args } => commands::xapi_command::xapi_command(subcommand, args.clone()),
         Commands::Abundance => commands::abundance_command::abundance_command(),
+        Commands::Synthetic { subcommand, args } => commands::synthetic_command::synthetic_command(subcommand, args.clone()),
     }
 }

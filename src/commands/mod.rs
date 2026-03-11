@@ -6,3 +6,4 @@ pub mod xmoney_integrate;
 pub mod crown_command;
 pub mod xapi_command;
 pub mod abundance_command;
+pub mod synthetic_command;
