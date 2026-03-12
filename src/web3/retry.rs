@@ -94,10 +94,13 @@ pub fn is_retryable_error(error: &anyhow::Error) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::sync::Arc;
+    use std::sync::atomic::{AtomicU32, Ordering};
     
     #[tokio::test]
     async fn test_retry_success_on_third_attempt() {
-        let mut attempts = 0;
+        let attempts = Arc::new(AtomicU32::new(0));
+        let attempts_clone = attempts.clone();
         
         let result = retry_with_backoff(
             RetryConfig {
@@ -106,18 +109,21 @@ mod tests {
                 max_delay_ms: 100,
                 exponential_base: 2.0,
             },
-            || async {
-                attempts += 1;
-                if attempts < 3 {
-                    Err(anyhow::anyhow!("Temporary failure"))
-                } else {
-                    Ok(936)
+            || {
+                let attempts = attempts_clone.clone();
+                async move {
+                    let current = attempts.fetch_add(1, Ordering::SeqCst) + 1;
+                    if current < 3 {
+                        Err(anyhow::anyhow!("Temporary failure"))
+                    } else {
+                        Ok(936)
+                    }
                 }
             },
         ).await;
         
         assert!(result.is_ok());
         assert_eq!(result.unwrap(), 936);
-        assert_eq!(attempts, 3);
+        assert_eq!(attempts.load(Ordering::SeqCst), 3);
     }
 }
