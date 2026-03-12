@@ -10,3 +10,4 @@ pub mod synthetic_command;
 pub mod vector_command;
 pub mod abundance_daemon;
 pub mod dashboard_command;
+pub mod relayer_command;

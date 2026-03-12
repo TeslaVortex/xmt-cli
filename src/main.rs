@@ -25,6 +25,8 @@ mod bridge;
 mod xapi;
 mod synthetic;
 mod ollama;
+mod relayer;
+mod starlink;
 
 #[derive(Parser)]
 #[command(name = "xmt-cli")]
@@ -149,6 +151,12 @@ enum Commands {
         #[arg(trailing_var_arg = true)]
         args: Vec<String>,
     },
+    /// Relayer - Gasless Transaction Service
+    Relayer {
+        /// Subcommand: start, status
+        #[arg(default_value = "help")]
+        subcommand: String,
+    },
 }
 
 fn main() {
@@ -187,5 +195,25 @@ fn main() {
         Commands::Dashboard { port } => commands::dashboard_command::start_dashboard_server(*port),
         Commands::Synthetic { subcommand, args } => commands::synthetic_command::synthetic_command(subcommand, args.clone()),
         Commands::Vector { subcommand, args } => commands::vector_command::vector_command(subcommand, args.clone()),
+        Commands::Relayer { subcommand } => {
+            let rt = tokio::runtime::Runtime::new().expect("Failed to create runtime");
+            match subcommand.as_str() {
+                "start" => {
+                    if let Err(e) = rt.block_on(commands::relayer_command::start_relayer()) {
+                        eprintln!("Error starting relayer: {}", e);
+                    }
+                }
+                "status" => {
+                    if let Err(e) = rt.block_on(commands::relayer_command::check_relayer_status()) {
+                        eprintln!("Error checking relayer status: {}", e);
+                    }
+                }
+                _ => {
+                    println!("Relayer Commands:");
+                    println!("  start  - Start gasless relayer service");
+                    println!("  status - Check relayer gas tank status");
+                }
+            }
+        }
     }
 }

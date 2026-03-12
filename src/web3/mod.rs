@@ -4,6 +4,7 @@ use anyhow::{Result, Context};
 use std::sync::Arc;
 
 pub mod signer;
+pub mod retry;
 
 pub struct Web3Provider {
     provider: Arc<Provider<Http>>,
