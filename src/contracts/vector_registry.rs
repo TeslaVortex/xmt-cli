@@ -51,19 +51,23 @@ impl<M: Middleware + 'static> VectorRegistry<M> {
     ) -> Result<TransactionReceipt> {
         let tx = self.contract.register_vector(vector_hash, intent.to_string(), U256::from(dimensions));
         
+        // Add gas limit and gas price
+        let tx = tx.gas(500000u64);
+        
         let pending_tx = tx
             .send()
             .await
-            .context("Failed to send register vector transaction")?;
+            .map_err(|e| anyhow::anyhow!("Failed to send transaction: {:?}", e))?;
 
         let receipt = pending_tx
             .await
-            .context("Failed to get transaction receipt")?
-            .context("Transaction failed")?;
+            .map_err(|e| anyhow::anyhow!("Failed to get receipt: {:?}", e))?
+            .ok_or_else(|| anyhow::anyhow!("Transaction dropped from mempool"))?;
 
         Ok(receipt)
     }
 
+    #[allow(dead_code)]
     pub async fn amplify_decree(
         &self,
         vector_hash: [u8; 32],
@@ -85,6 +89,7 @@ impl<M: Middleware + 'static> VectorRegistry<M> {
         Ok(receipt)
     }
 
+    #[allow(dead_code)]
     pub async fn record_mint_trigger(
         &self,
         vector_hash: [u8; 32],
@@ -106,6 +111,7 @@ impl<M: Middleware + 'static> VectorRegistry<M> {
         Ok(receipt)
     }
 
+    #[allow(dead_code)]
     pub async fn seal_burn(
         &self,
         vector_hash: [u8; 32],

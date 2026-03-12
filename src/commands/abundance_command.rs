@@ -133,6 +133,7 @@ pub fn abundance_command() {
 }
 
 /// Display help for abundance command
+#[allow(dead_code)]
 pub fn abundance_help() {
     println!("{}", "🎁 ABUNDANCE DROP COMMAND".bright_yellow().bold());
     println!();

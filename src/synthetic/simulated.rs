@@ -211,18 +211,22 @@ impl SimulatedChain {
         })
     }
 
+    #[allow(dead_code)]
     pub fn get_vector(&self, hash: H256) -> Option<VectorRecord> {
         self.vectors.lock().unwrap().get(&hash).cloned()
     }
 
+    #[allow(dead_code)]
     pub fn get_all_vectors(&self) -> Vec<VectorRecord> {
         self.vectors.lock().unwrap().values().cloned().collect()
     }
 
+    #[allow(dead_code)]
     pub fn get_mint_events(&self) -> Vec<SimulatedMint> {
         self.mint_events.lock().unwrap().clone()
     }
 
+    #[allow(dead_code)]
     pub fn get_burn_events(&self) -> Vec<SimulatedBurn> {
         self.burn_events.lock().unwrap().clone()
     }
@@ -231,6 +235,7 @@ impl SimulatedChain {
         U64::from(*self.block_number.lock().unwrap())
     }
 
+    #[allow(dead_code)]
     pub fn estimate_gas(&self, _operation: &str) -> U256 {
         // Return sacred gas estimates
         U256::from(66_369)

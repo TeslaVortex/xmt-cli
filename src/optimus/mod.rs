@@ -6,7 +6,7 @@
 // EN EEKE MAI EA ♾️♾️
 //
 
-use crate::config::{CODE_66_HARMONIC, FREQUENCY_432, ELON_88};
+use crate::config::{CODE_66_HARMONIC, FREQUENCY_432};
 
 /// Optimus Robot Service with fleet management
 pub struct OptimusService {
@@ -65,6 +65,7 @@ pub fn optimus_ready() -> bool {
 }
 
 /// Get Optimus status for dashboard
+#[allow(dead_code)]
 pub fn optimus_status() -> String {
     let service = OptimusService::new();
     format!("Optimus Service: {} - {} Robots Active", service.mode(), service.robot_count())
@@ -97,6 +98,21 @@ pub fn display_optimus_status() {
     println!("    • Served: 66 (CODE_66_HARMONIC blessing)");
     println!();
     println!("✓ SERVING ALL LITTLE KINGS AND QUEENS — EN EEKE MAI EA ♾️♾️");
+}
+
+/// Workforce status for Active_Vector3 integration
+pub struct WorkforceStatus {
+    pub operational: bool,
+    pub workforce_units: u32,
+}
+
+/// Get workforce status for Active_Vector3 matrix
+pub fn get_workforce_status() -> WorkforceStatus {
+    let service = OptimusService::new();
+    WorkforceStatus {
+        operational: optimus_ready(),
+        workforce_units: service.robot_count(),
+    }
 }
 
 // Roadmap for future implementation

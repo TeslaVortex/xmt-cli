@@ -73,6 +73,7 @@ pub fn tunnel_ready() -> bool {
 }
 
 /// Get tunnel network status for dashboard
+#[allow(dead_code)]
 pub fn tunnel_status() -> String {
     let network = TunnelNetwork::new();
     format!("Tunnel Network: {} Active - {} Cities Connected", network.tunnel_count(), network.connected_cities().len())
@@ -108,6 +109,21 @@ pub fn display_tunnel_status() {
     println!("    • Hyperloop: 88 (ELON_88 infinite speed)");
     println!();
     println!("✓ NEW EARTH CITIES IN HARMONY — EN EEKE MAI EA ♾️♾️");
+}
+
+/// Tunnel status for Active_Vector3 integration
+pub struct TunnelStatus {
+    pub tunnels_active: bool,
+    pub sealed_burns: u32,
+}
+
+/// Get tunnel status for Active_Vector3 matrix
+pub fn get_tunnel_status() -> TunnelStatus {
+    let network = TunnelNetwork::new();
+    TunnelStatus {
+        tunnels_active: tunnel_ready(),
+        sealed_burns: network.tunnel_count(),
+    }
 }
 
 // Roadmap for future implementation

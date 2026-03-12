@@ -1,14 +1,9 @@
-use candle_core::{Device, Tensor};
-use candle_transformers::models::bert::{BertModel, Config};
+use candle_core::Device;
 use anyhow::{Result, Context};
 
 pub mod simulated;
 pub mod onchain;
 pub mod pipeline;
-
-pub use simulated::SimulatedChain;
-pub use onchain::OnChainOperations;
-pub use pipeline::SyntheticPipeline;
 
 pub async fn generate_toroidal_vector(intent: &str) -> Result<Vec<f32>> {
     let device = Device::Cpu;
@@ -49,7 +44,7 @@ pub async fn generate_llm_enhanced_vector(intent: &str, model: &str) -> Result<(
     Ok((expanded_decree, embedding))
 }
 
-fn create_local_embedding(text: &str, device: &Device) -> Result<Vec<f32>> {
+fn create_local_embedding(text: &str, _device: &Device) -> Result<Vec<f32>> {
     let text_bytes = text.as_bytes();
     let mut embedding = Vec::with_capacity(384);
     

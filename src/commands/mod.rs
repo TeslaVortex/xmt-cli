@@ -7,3 +7,6 @@ pub mod crown_command;
 pub mod xapi_command;
 pub mod abundance_command;
 pub mod synthetic_command;
+pub mod vector_command;
+pub mod abundance_daemon;
+pub mod dashboard_command;

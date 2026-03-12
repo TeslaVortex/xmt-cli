@@ -10,6 +10,7 @@ struct OllamaGenerateRequest {
 }
 
 #[derive(Debug, Deserialize)]
+#[allow(dead_code)]
 struct OllamaGenerateResponse {
     response: String,
     done: bool,
@@ -61,6 +62,7 @@ impl OllamaClient {
         self.client.get(&url).send().await.is_ok()
     }
 
+    #[allow(dead_code)]
     pub async fn list_models(&self) -> Result<Vec<String>> {
         let url = format!("{}/api/tags", self.base_url);
         

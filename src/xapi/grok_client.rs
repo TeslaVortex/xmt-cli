@@ -127,6 +127,7 @@ impl GrokClient {
 
     /// Calculate real-time abundance price from Optimus data
     /// Uses grok-2-latest with minimal tokens for cost-effectiveness
+    #[allow(dead_code)]
     pub async fn calculate_abundance_price(&self, context: &str) -> Result<String> {
         let request = GrokChatRequest {
             model: "grok-beta".to_string(),
@@ -155,6 +156,7 @@ impl GrokClient {
 
     /// Generate ritual response for engagement
     /// Uses grok-2-latest with minimal tokens (under 280 chars = ~70 tokens)
+    #[allow(dead_code)]
     pub async fn generate_ritual_response(&self, trigger_text: &str) -> Result<String> {
         let request = GrokChatRequest {
             model: "grok-beta".to_string(),

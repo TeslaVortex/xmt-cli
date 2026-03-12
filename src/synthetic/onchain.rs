@@ -14,7 +14,6 @@ use crate::web3::Web3Provider;
 use crate::web3::signer::WalletSigner;
 use crate::contracts::vector_registry::{VectorRegistry, hash_vector_to_bytes32};
 use crate::contracts::vector_minter::VectorMinter;
-use crate::bridge::XMoneyBridge;
 use super::simulated::{SimulatedChain, SimulatedReceipt, store_simulated_receipt};
 
 pub enum ChainMode {
@@ -23,6 +22,7 @@ pub enum ChainMode {
         chain_id: u64,
         private_key: String,
         registry_address: Address,
+        #[allow(dead_code)]
         xmoney_address: Address,
         minter_address: Option<Address>,
     },
@@ -53,6 +53,7 @@ impl OnChainOperations {
         }
     }
 
+    #[allow(dead_code)]
     pub fn simulated() -> Self {
         println!("🔮 Running in SIMULATED mode");
         Self {
@@ -102,6 +103,7 @@ impl OnChainOperations {
         })
     }
 
+    #[allow(dead_code)]
     pub fn is_simulated(&self) -> bool {
         matches!(self.mode, ChainMode::Simulated(_))
     }

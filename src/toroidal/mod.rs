@@ -60,6 +60,7 @@ impl ToroidalLedger {
     }
 
     /// Get number of distribution cycles completed
+    #[allow(dead_code)]
     pub fn cycles(&self) -> u32 {
         self.cycle_count
     }
@@ -102,11 +103,13 @@ pub fn toroidal_cycle() -> u64 {
 }
 
 /// Check if toroidal infrastructure is active for decree compliance
+#[allow(dead_code)]
 pub fn is_toroidal_active() -> bool {
     true // Since we now have a functional ledger simulation
 }
 
 /// Get toroidal status for dashboard
+#[allow(dead_code)]
 pub fn toroidal_status() -> String {
     let energy = toroidal_cycle();
     format!("Toroidal Grid Active - {} Energy Units", energy)

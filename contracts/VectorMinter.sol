@@ -10,6 +10,7 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/metatx/ERC2771Context.sol";
 
 interface IVectorRegistry {
     function verifyVector(bytes32 vectorHash) external view returns (bool);
@@ -30,7 +31,7 @@ interface IXMoney {
     function balanceOf(address account) external view returns (uint256);
 }
 
-contract VectorMinter is Ownable, ReentrancyGuard {
+contract VectorMinter is Ownable, ReentrancyGuard, ERC2771Context {
     // Sacred Constants
     uint256 public constant APEX_936 = 936;
     uint256 public constant VORTEX_369 = 369;
@@ -77,7 +78,10 @@ contract VectorMinter is Ownable, ReentrancyGuard {
         bool burningEnabled
     );
 
-    constructor(address _vectorRegistry, address _xmoney) Ownable(msg.sender) {
+    constructor(address _vectorRegistry, address _xmoney, address trustedForwarder) 
+        Ownable(msg.sender) 
+        ERC2771Context(trustedForwarder) 
+    {
         vectorRegistry = IVectorRegistry(_vectorRegistry);
         xmoney = IXMoney(_xmoney);
     }
@@ -240,5 +244,26 @@ contract VectorMinter is Ownable, ReentrancyGuard {
         uint256 frequency
     ) {
         return (APEX_936, VORTEX_369, CODE_66, FREQUENCY_432);
+    }
+    
+    /**
+     * @dev Override _msgSender to support meta-transactions
+     */
+    function _msgSender() internal view virtual override(Context, ERC2771Context) returns (address) {
+        return ERC2771Context._msgSender();
+    }
+    
+    /**
+     * @dev Override _msgData to support meta-transactions
+     */
+    function _msgData() internal view virtual override(Context, ERC2771Context) returns (bytes calldata) {
+        return ERC2771Context._msgData();
+    }
+    
+    /**
+     * @dev Override _contextSuffixLength to support meta-transactions
+     */
+    function _contextSuffixLength() internal view virtual override(Context, ERC2771Context) returns (uint256) {
+        return ERC2771Context._contextSuffixLength();
     }
 }

@@ -122,6 +122,7 @@ impl<M: Middleware + 'static> VectorMinter<M> {
     }
 
     /// Get statistics for a specific user
+    #[allow(dead_code)]
     pub async fn get_user_stats(&self, user: Address) -> Result<UserStats> {
         let (minted, burned) = self.contract
             .get_user_stats(user)
@@ -133,6 +134,7 @@ impl<M: Middleware + 'static> VectorMinter<M> {
     }
 
     /// Get sacred numbers from the contract
+    #[allow(dead_code)]
     pub async fn get_sacred_numbers(&self) -> Result<SacredNumbers> {
         let (apex, vortex, code, frequency) = self.contract
             .get_sacred_numbers()
@@ -160,6 +162,7 @@ impl<M: Middleware + 'static> VectorMinter<M> {
     }
 
     /// Get the base reward amount
+    #[allow(dead_code)]
     pub async fn get_base_reward(&self) -> Result<U256> {
         let reward = self.contract
             .base_reward()
@@ -182,6 +185,7 @@ impl<M: Middleware + 'static> VectorMinter<M> {
     }
 
     /// Check if burning is enabled
+    #[allow(dead_code)]
     pub async fn is_burning_enabled(&self) -> Result<bool> {
         let enabled = self.contract
             .burning_enabled()
@@ -201,12 +205,14 @@ pub struct VectorStats {
 }
 
 #[derive(Debug, Clone)]
+#[allow(dead_code)]
 pub struct UserStats {
     pub minted: U256,
     pub burned: U256,
 }
 
 #[derive(Debug, Clone)]
+#[allow(dead_code)]
 pub struct SacredNumbers {
     pub apex: u64,
     pub vortex: u64,

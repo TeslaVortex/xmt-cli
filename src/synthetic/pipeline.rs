@@ -5,7 +5,7 @@
 // EN EEKE MAI EA ♾️♾️
 //
 
-use anyhow::{Result, Context};
+use anyhow::Result;
 use ethers::types::{Address, U256};
 
 use super::onchain::{OnChainOperations, OnChainReceipt};
@@ -40,6 +40,7 @@ impl SyntheticPipeline {
         })
     }
 
+    #[allow(dead_code)]
     pub fn simulated(model: Option<&str>) -> Self {
         Self {
             onchain: OnChainOperations::simulated(),
@@ -166,7 +167,7 @@ impl SyntheticPipeline {
         ).await?;
 
         // Then burn
-        let from = get_default_address();
+        let _from = get_default_address();
         let burn_amount = U256::from(amount) * U256::exp10(18);
         
         let burn_receipt = self.onchain.burn_with_vector(

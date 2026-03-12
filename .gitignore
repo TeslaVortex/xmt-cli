@@ -28,3 +28,6 @@ Thumbs.db
 cache/
 .env.organized
 node_modules
+
+# Generated ritual dashboard data
+dashboard/ritual_*.json

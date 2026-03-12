@@ -7,8 +7,8 @@
 
 use anyhow::{Context, Result};
 use reqwest::Client;
-use serde::{Deserialize, Serialize};
 use serde_json::json;
+use base64::Engine;
 
 fn percent_encode(input: &str) -> String {
     input
@@ -160,7 +160,7 @@ impl XApiClient {
         type HmacSha1 = Hmac<Sha1>;
         let mut mac = HmacSha1::new_from_slice(signing_key.as_bytes())?;
         mac.update(base_string.as_bytes());
-        let signature = base64::encode(mac.finalize().into_bytes());
+        let signature = base64::engine::general_purpose::STANDARD.encode(mac.finalize().into_bytes());
         
         println!("   Signature: {}", signature);
         
@@ -280,6 +280,7 @@ impl XApiClient {
     }
 
     /// GET /2/users/:id/tweets - Fetch user's recent posts for ritual verification
+    #[allow(dead_code)]
     pub async fn get_user_tweets(&self, user_id: String, max_results: Option<u32>) -> Result<TweetsResponse> {
         let url = format!("{}/users/{}/tweets", self.base_url, user_id);
         
@@ -309,6 +310,7 @@ impl XApiClient {
     }
 
     /// GET /2/tweets/:id - Lookup single tweet
+    #[allow(dead_code)]
     pub async fn get_tweet(&self, tweet_id: String) -> Result<TweetResponse> {
         let url = format!("{}/tweets/{}", self.base_url, tweet_id);
         
@@ -332,6 +334,7 @@ impl XApiClient {
     }
 
     /// POST /2/users/:id/likes - Like a tweet (optional amplification)
+    #[allow(dead_code)]
     pub async fn like_tweet(&self, user_id: String, tweet_id: String) -> Result<()> {
         let url = format!("{}/users/{}/likes", self.base_url, user_id);
         

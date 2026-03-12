@@ -63,6 +63,7 @@ impl DtqpeState {
     }
     
     /// Get current security strength (bits)
+    #[allow(dead_code)]
     pub fn security_bits(&self) -> u32 {
         128 + (self.level as u32 * 12) // 128-bit base + 12 bits per level
     }
@@ -72,6 +73,7 @@ impl DtqpeState {
 pub struct DtqpeEncrypted {
     pub ciphertext: Vec<u8>,
     pub level: u8,
+    #[allow(dead_code)]
     pub toroidal_tag: u64,
 }
 

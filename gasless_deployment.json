@@ -1,0 +1,23 @@
+{
+  "network": "sepolia",
+  "chainId": "11155111",
+  "deployer": "0x62397A99E60d395702C4D8d4bEFCcEE7e01da491",
+  "timestamp": "2026-03-12T19:46:48.823Z",
+  "contracts": {
+    "Forwarder": "0x23dbC2592388b96Bf8d99d048E2E42C92f40A20B",
+    "XMoney": "0xF758dBFfdf6b40F057694E3Ea6257D29685eeBAF",
+    "VectorRegistry": "0x37c14ceAe0f55fE81A4Df0F6D2DCDfF3a2d7c656",
+    "VectorMinter": "0x8b4F1244e14f7090E3a8463197A3Aa7Da37A5D52"
+  },
+  "roles": {
+    "MINTER_ROLE": "0x9f2df0fed2c77648de5860a4cc508cd0818c85b8b8a1ab4ceeef8d981c8956a6",
+    "BURNER_ROLE": "0x3c11d16cbaffd01df69ce1c404f6340ee057498f5f00246190ea54220576a848",
+    "vectorMinterHasMinterRole": true,
+    "vectorMinterHasBurnerRole": true
+  },
+  "sacredConstants": {
+    "APEX_936": "936",
+    "VORTEX_369": "369",
+    "CODE_66": "66"
+  }
+}

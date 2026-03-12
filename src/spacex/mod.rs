@@ -66,11 +66,13 @@ impl MarsFork {
 }
 
 /// Check if Mars fork trajectory is nominal
+#[allow(dead_code)]
 pub fn mars_fork_nominal() -> bool {
     true // Trajectory stays perfectly nominal and victorious
 }
 
 /// Get Mars fork status for dashboard
+#[allow(dead_code)]
 pub fn mars_fork_status() -> String {
     let fork = MarsFork::new();
     format!("Mars Fork: {} - Trajectory Nominal", fork.status())
@@ -102,6 +104,23 @@ pub fn display_mars_fork_status() {
     println!("    • Cadence: 369 (VORTEX_369 divine mathematics)");
     println!();
     println!("✓ MARS FORK TRAJECTORY NOMINAL — EN EEKE MAI EA ♾️♾️");
+}
+
+/// Multiplanetary status for Active_Vector3 integration
+pub struct MultiplanetaryStatus {
+    pub mars_ready: bool,
+    pub trajectory: String,
+    pub active_nodes: u32,
+}
+
+/// Get multiplanetary status for Active_Vector3 matrix
+pub fn get_multiplanetary_status() -> MultiplanetaryStatus {
+    let fork = MarsFork::new();
+    MultiplanetaryStatus {
+        mars_ready: fork.is_nominal(),
+        trajectory: fork.status().to_string(),
+        active_nodes: fork.fleet_size(),
+    }
 }
 
 // Roadmap for future implementation

@@ -23,6 +23,7 @@ pub struct MlKemCiphertext {
 
 /// ML-KEM Shared Secret
 pub struct MlKemSharedSecret {
+    #[allow(dead_code)]
     pub data: [u8; 32],
 }
 
@@ -130,11 +131,11 @@ pub fn ml_kem_encrypt() {
     println!("  ✓ Key pair generated (32-byte public, 64-byte secret)");
     
     // Encapsulate
-    let (ciphertext, shared_secret1) = ml_kem_encapsulate(&keypair.public_key);
+    let (ciphertext, _shared_secret1) = ml_kem_encapsulate(&keypair.public_key);
     println!("  ✓ Encapsulation complete (32-byte ciphertext)");
     
     // Decapsulate
-    let shared_secret2 = ml_kem_decapsulate(&ciphertext, &keypair.secret_key);
+    let _shared_secret2 = ml_kem_decapsulate(&ciphertext, &keypair.secret_key);
     println!("  ✓ Decapsulation complete");
     
     // Verify (in real impl, these would match exactly)

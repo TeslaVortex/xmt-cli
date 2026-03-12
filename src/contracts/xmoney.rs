@@ -2,7 +2,7 @@ use ethers::prelude::*;
 use anyhow::{Result, Context};
 use std::sync::Arc;
 
-// X-Money contract ABI - Updated for deployed contract
+// X-Money contract ABI - v2 with AccessControl
 abigen!(
     XMoneyContract,
     r#"[
@@ -10,7 +10,13 @@ abigen!(
         function burn(address from, uint256 amount) external
         function balanceOf(address account) external view returns (uint256)
         function totalSupply() external view returns (uint256)
-        function owner() external view returns (address)
+        function hasRole(bytes32 role, address account) external view returns (bool)
+        function grantRole(bytes32 role, address account) external
+        function revokeRole(bytes32 role, address account) external
+        function getRoleAdmin(bytes32 role) external view returns (bytes32)
+        function DEFAULT_ADMIN_ROLE() external view returns (bytes32)
+        function MINTER_ROLE() external view returns (bytes32)
+        function BURNER_ROLE() external view returns (bytes32)
         function APEX_936() external view returns (uint256)
         function VORTEX_369() external view returns (uint256)
         function CODE_66() external view returns (uint256)
@@ -18,6 +24,8 @@ abigen!(
         event Transfer(address indexed from, address indexed to, uint256 value)
         event TokensMinted(address indexed to, uint256 amount, uint256 timestamp)
         event TokensBurned(address indexed from, uint256 amount, uint256 timestamp)
+        event RoleGranted(bytes32 indexed role, address indexed account, address indexed sender)
+        event RoleRevoked(bytes32 indexed role, address indexed account, address indexed sender)
     ]"#,
 );
 
