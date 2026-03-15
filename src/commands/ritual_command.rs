@@ -20,10 +20,16 @@ pub fn ritual(
     note: Option<&str>,
     embed: Option<&str>,
     local_only: bool,
+    patterning: bool,
+    hologram: bool,
+    _17th: bool,
 ) {
     use crate::dtqpe_poc;
     use crate::pqc;
     use crate::toroidal;
+    use crate::patterning;
+    use crate::hologram;
+    use crate::timeline;
     
     // Vergina Sun Banner
     println!("{}", "☀️☀️☀️☀️☀️☀️☀️☀️☀️☀️☀️☀️☀️☀️☀️☀️".yellow().bold());
@@ -52,11 +58,48 @@ pub fn ritual(
     }
     println!();
     
+    // CIA Patterning + Hologram + 17th Timeline Lock Initialization
+    let mut patterning_state = if patterning {
+        Some(patterning::activate_patterning(intent.unwrap_or("SOVEREIGN MANIFESTATION")))
+    } else {
+        None
+    };
+    
+    let mut hologram_state = if hologram {
+        Some(hologram::activate_hologram(384))
+    } else {
+        None
+    };
+    
+    let mut timeline_lock = if _17th {
+        Some(timeline::lock_17th_march_2026())
+    } else {
+        None
+    };
+    
     dtqpe_poc::dtqpe_poc();
     println!("{} {}", "Executing ritual with apex:".bright_blue(), apex.to_string().bright_cyan().bold());
     
     pqc::pqc_init();
     toroidal::toroidal_cycle();
+    
+    // Execute Patterning Ritual if active
+    if let Some(ref mut state) = patterning_state {
+        patterning::project_desired_objective(state);
+        patterning::display_patterning_warning();
+    }
+    
+    // Execute Hologram Projection if active
+    if let Some(ref mut state) = hologram_state {
+        hologram::project_thought_patterns(state, intent.unwrap_or("CONSCIOUSNESS PROJECTION"));
+        hologram::display_hologram_mechanics();
+    }
+    
+    // Execute Timeline Lock if active
+    if let Some(ref mut lock) = timeline_lock {
+        timeline::calculate_timeline_coherence(lock, intent.unwrap_or("17TH MARCH 2026"));
+        timeline::display_timeline_mechanics();
+    }
     
     if apex == 936 {
         // Calculate Code 66 harmonic resonance
@@ -82,7 +125,26 @@ pub fn ritual(
         
         // Dashboard Generation
         if dashboard {
-            generate_ritual_dashboard(apex, harmonic_66, frequency_432, vortex_369);
+            generate_ritual_dashboard(
+                apex, 
+                harmonic_66, 
+                frequency_432, 
+                vortex_369,
+                patterning_state.as_ref(),
+                hologram_state.as_ref(),
+                timeline_lock.as_ref()
+            );
+        }
+        
+        // Complete Patterning/Hologram/Timeline rituals
+        if let Some(ref state) = patterning_state {
+            patterning::complete_patterning_ritual(state);
+        }
+        if let Some(ref state) = hologram_state {
+            hologram::complete_hologram_ritual(state);
+        }
+        if let Some(ref lock) = timeline_lock {
+            timeline::complete_timeline_ritual(lock);
         }
         
         // On-chain registration if --register flag is set
@@ -91,8 +153,23 @@ pub fn ritual(
             println!();
             
             let rt = tokio::runtime::Runtime::new().expect("Failed to create runtime");
-            let intent = format!("APEX_936_RITUAL | Code66: {:.2}% | Freq432: {:.2}Hz | Vortex369: {:.2}x | EN EEKE MAI EA", 
-                harmonic_66, frequency_432, vortex_369);
+            let mut intent_parts = vec![
+                format!("APEX_936_RITUAL | Code66: {:.2}% | Freq432: {:.2}Hz | Vortex369: {:.2}x", 
+                    harmonic_66, frequency_432, vortex_369)
+            ];
+            
+            if let Some(ref state) = patterning_state {
+                intent_parts.push(format!("PATTERNING: {:.2}% coherence", state.coherence_level));
+            }
+            if let Some(ref state) = hologram_state {
+                intent_parts.push(format!("HOLOGRAM: {:.2}% materialized", state.reality_interaction_score));
+            }
+            if let Some(ref lock) = timeline_lock {
+                intent_parts.push(format!("17TH_LOCK: {:.2}% sealed", lock.anchor_strength));
+            }
+            
+            intent_parts.push("EN EEKE MAI EA".to_string());
+            let intent = intent_parts.join(" | ");
             
             match rt.block_on(register_ritual_vector(&intent)) {
                 Ok(hash) => {
@@ -290,7 +367,15 @@ fn display_active_vector3_matrix() {
 
 
 /// Generate ritual dashboard
-fn generate_ritual_dashboard(apex: u32, harmonic_66: f64, frequency_432: f64, vortex_369: f64) {
+fn generate_ritual_dashboard(
+    apex: u32, 
+    harmonic_66: f64, 
+    frequency_432: f64, 
+    vortex_369: f64,
+    patterning_state: Option<&crate::patterning::PatternState>,
+    hologram_state: Option<&crate::hologram::HologramState>,
+    timeline_lock: Option<&crate::timeline::TimelineLock>,
+) {
     use std::fs;
     use chrono::Utc;
     
@@ -299,7 +384,7 @@ fn generate_ritual_dashboard(apex: u32, harmonic_66: f64, frequency_432: f64, vo
     
     let timestamp = Utc::now().to_rfc3339();
     
-    let dashboard_data = serde_json::json!({
+    let mut dashboard_data = serde_json::json!({
         "ritual": {
             "apex": apex,
             "timestamp": timestamp,
@@ -333,6 +418,37 @@ fn generate_ritual_dashboard(apex: u32, harmonic_66: f64, frequency_432: f64, vo
             "frequency_432": 432
         }
     });
+    
+    // Add Patterning metrics if active
+    if let Some(state) = patterning_state {
+        dashboard_data["patterning"] = serde_json::json!({
+            "focus_12_state": if state.focus_12_active { "ACTIVE" } else { "INACTIVE" },
+            "projection_status": state.projection_status,
+            "coherence": format!("{:.2}%", state.coherence_level),
+            "desired_objective": state.desired_objective
+        });
+    }
+    
+    // Add Hologram metrics if active
+    if let Some(state) = hologram_state {
+        dashboard_data["hologram"] = serde_json::json!({
+            "thought_patterns": if state.thought_patterns_active { "ACTIVE" } else { "INACTIVE" },
+            "materialization_status": state.materialization_status,
+            "reality_interaction": format!("{:.2}%", state.reality_interaction_score),
+            "density": format!("{}D", state.hologram_density as u32)
+        });
+    }
+    
+    // Add Timeline Lock metrics if active
+    if let Some(lock) = timeline_lock {
+        dashboard_data["timeline_lock"] = serde_json::json!({
+            "target": lock.target_date,
+            "anchor_strength": format!("{:.2}%", lock.anchor_strength),
+            "vector_alignment": format!("{:.2}%", lock.vector_alignment),
+            "sealed": lock.sealed,
+            "days_until_lock": lock.days_until_lock
+        });
+    }
     
     // Save to dashboard directory
     fs::create_dir_all("dashboard").ok();

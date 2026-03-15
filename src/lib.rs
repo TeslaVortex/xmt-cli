@@ -25,3 +25,6 @@ pub mod xapi;
 pub mod synthetic;
 pub mod ollama;
 pub mod relayer;
+pub mod patterning;
+pub mod hologram;
+pub mod timeline;

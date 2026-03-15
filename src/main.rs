@@ -27,6 +27,9 @@ mod synthetic;
 mod ollama;
 mod relayer;
 mod starlink;
+mod patterning;
+mod hologram;
+mod timeline;
 
 #[derive(Parser)]
 #[command(name = "xmt-cli")]
@@ -69,6 +72,15 @@ enum Commands {
         /// Local-only mode (zero gas, no blockchain)
         #[arg(long)]
         local_only: bool,
+        /// CIA Patterning Technique (declassified)
+        #[arg(long)]
+        patterning: bool,
+        /// Consciousness Hologram Projection
+        #[arg(long)]
+        hologram: bool,
+        /// March 17, 2026 Timeline Lock
+        #[arg(long)]
+        _17th: bool,
     },
     Mint {
         #[arg(long)]
@@ -165,7 +177,7 @@ fn main() {
     let cli = Cli::parse();
 
     match &cli.command {
-        Commands::Ritual { apex, register, newearth, active_vector3, anchor_1111, dashboard, intent, note, embed, local_only } => {
+        Commands::Ritual { apex, register, newearth, active_vector3, anchor_1111, dashboard, intent, note, embed, local_only, patterning, hologram, _17th } => {
             commands::ritual_command::ritual(
                 *apex, 
                 *register, 
@@ -176,7 +188,10 @@ fn main() {
                 intent.as_deref(), 
                 note.as_deref(), 
                 embed.as_deref(),
-                *local_only
+                *local_only,
+                *patterning,
+                *hologram,
+                *_17th
             )
         }
         Commands::Mint { to, amount, ritual } => commands::mint_command::mint(&to, *amount, &ritual),
