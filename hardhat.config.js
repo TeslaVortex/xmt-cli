@@ -28,14 +28,20 @@ module.exports = {
   },
   networks: {
     sepolia: {
-      url: process.env.BASE_RPC_URL || "https://eth-sepolia.g.alchemy.com/v2/demo",
+      url: process.env.SEPOLIA_RPC_URL || "https://eth-sepolia.g.alchemy.com/v2/demo",
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
       chainId: 11155111
     },
     baseSepolia: {
-      url: process.env.BASE_RPC_URL || "https://sepolia.base.org",
+      url: process.env.BASE_SEPOLIA_RPC_URL || "https://sepolia.base.org",
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
       chainId: 84532
+    },
+    base: {
+      url: process.env.BASE_MAINNET_RPC_URL || process.env.BASE_MAINNET_RPC || "https://mainnet.base.org",
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+      chainId: 8453,
+      gasPrice: 1000000000
     }
   },
   paths: {

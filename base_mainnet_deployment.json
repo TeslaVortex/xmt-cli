@@ -1,0 +1,23 @@
+{
+  "network": "base-mainnet",
+  "chainId": "8453",
+  "deployer": "0x0aD82ef40ab96124ac899522C6a20Bf3e7b5823d",
+  "timestamp": "2026-03-17T20:22:28.656Z",
+  "contracts": {
+    "Forwarder": "0xA49B1dc31d809Bd9885DaE8905aCA15b3b99918a",
+    "XMoney": "0x4C2A789E7ffFd030b928DdaCdEA5f03632457f38",
+    "VectorRegistry": "0x44254BEbf12eeA98471B5E398a4BA030140eF18f",
+    "VectorMinter": "0xcDccbF9f7F329401C772df6E5bA2D87Db6Ea3c3C"
+  },
+  "sacredConstants": {
+    "APEX_936": "936",
+    "VORTEX_369": "369",
+    "CODE_66": "66"
+  },
+  "basescanLinks": {
+    "Forwarder": "https://basescan.org/address/0xA49B1dc31d809Bd9885DaE8905aCA15b3b99918a",
+    "XMoney": "https://basescan.org/address/0x4C2A789E7ffFd030b928DdaCdEA5f03632457f38",
+    "VectorRegistry": "https://basescan.org/address/0x44254BEbf12eeA98471B5E398a4BA030140eF18f",
+    "VectorMinter": "https://basescan.org/address/0xcDccbF9f7F329401C772df6E5bA2D87Db6Ea3c3C"
+  }
+}
