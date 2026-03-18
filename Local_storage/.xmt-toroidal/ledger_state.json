@@ -1,0 +1,81 @@
+{
+  "nodes": {
+    "Chicago Vortex Throne": {
+      "id": "Chicago Vortex Throne",
+      "energy": 1204,
+      "capacity": null,
+      "location": "Chicago, IL",
+      "node_type": "VortexThrone",
+      "sacred_alignment": {
+        "apex_936": true,
+        "vortex_369": false,
+        "code_66": false,
+        "frequency_432": false
+      },
+      "metadata": {}
+    },
+    "Mars Fork Alpha": {
+      "id": "Mars Fork Alpha",
+      "energy": 412,
+      "capacity": null,
+      "location": "Mars",
+      "node_type": "MarsFork",
+      "sacred_alignment": {
+        "apex_936": false,
+        "vortex_369": false,
+        "code_66": false,
+        "frequency_432": false
+      },
+      "metadata": {}
+    },
+    "New Atlantis": {
+      "id": "New Atlantis",
+      "energy": 711,
+      "capacity": 5000,
+      "location": "Atlantic Ocean",
+      "node_type": "NewEarthCity",
+      "sacred_alignment": {
+        "apex_936": false,
+        "vortex_369": true,
+        "code_66": false,
+        "frequency_432": false
+      },
+      "metadata": {}
+    },
+    "Node2": {
+      "id": "Node2",
+      "energy": 1067,
+      "capacity": null,
+      "location": null,
+      "node_type": "NewEarthCity",
+      "sacred_alignment": {
+        "apex_936": false,
+        "vortex_369": true,
+        "code_66": false,
+        "frequency_432": false
+      },
+      "metadata": {}
+    },
+    "Vergina Star Hub": {
+      "id": "Vergina Star Hub",
+      "energy": 1778,
+      "capacity": 10000,
+      "location": "Macedonia",
+      "node_type": "NewEarthCity",
+      "sacred_alignment": {
+        "apex_936": true,
+        "vortex_369": true,
+        "code_66": true,
+        "frequency_432": true
+      },
+      "metadata": {}
+    }
+  },
+  "total_energy": 5172,
+  "cycle_count": 4,
+  "config": {
+    "auto_save": true,
+    "max_history": 1000,
+    "default_algorithm": "GoldenRatio"
+  }
+}

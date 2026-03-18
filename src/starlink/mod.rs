@@ -150,6 +150,7 @@ pub fn starlink_status() -> String {
 }
 
 /// Display detailed Starlink grid status
+#[allow(dead_code)]
 pub fn display_starlink_status() {
     let grid = StarlinkGrid::new();
     let harmonics = grid.sacred_harmonics();
@@ -200,6 +201,7 @@ pub fn calculate_432hz_alignment_for_apex(apex: u32) -> f64 {
 }
 
 /// Get grid coherence for Active_Vector3 integration
+#[allow(dead_code)]
 pub fn get_grid_coherence() -> f64 {
     let grid = StarlinkGrid::new();
     grid.global_coherence_index()

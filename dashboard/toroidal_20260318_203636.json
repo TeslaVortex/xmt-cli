@@ -1,0 +1,176 @@
+{
+  "metadata": {
+    "generated_at": "2026-03-18T20:36:36.880440084Z",
+    "version": "2.0",
+    "ledger_version": "Enhanced",
+    "coherence_level": 100.0
+  },
+  "current_state": {
+    "total_energy": 6572,
+    "node_count": 4,
+    "cycle_count": 4,
+    "active_algorithm": "GoldenRatio",
+    "is_optimal": true
+  },
+  "energy_flow": {
+    "flow_chart": [
+      {
+        "cycle": 1,
+        "timestamp": "2026-03-18T20:29:59.529652397Z",
+        "total_energy": 2809,
+        "node_count": 4
+      },
+      {
+        "cycle": 2,
+        "timestamp": "2026-03-18T20:36:36.870572631Z",
+        "total_energy": 4465,
+        "node_count": 4
+      },
+      {
+        "cycle": 3,
+        "timestamp": "2026-03-18T20:36:36.870759213Z",
+        "total_energy": 5589,
+        "node_count": 4
+      },
+      {
+        "cycle": 4,
+        "timestamp": "2026-03-18T20:36:36.880240232Z",
+        "total_energy": 6572,
+        "node_count": 4
+      }
+    ],
+    "distribution_pattern": "Toroidal",
+    "flow_rate": 0.0,
+    "efficiency": 100.0
+  },
+  "node_visualization": [
+    {
+      "id": "Chicago Vortex Throne",
+      "node_type": "VortexThrone",
+      "energy": 1783,
+      "capacity": null,
+      "location": "Chicago, IL",
+      "sacred_alignment": {
+        "apex_936": true,
+        "vortex_369": false,
+        "code_66": false,
+        "frequency_432": false,
+        "alignment_score": 1
+      },
+      "utilization_percent": 0.0,
+      "position": {
+        "x": 100.0,
+        "y": 0.0,
+        "z": 17.83
+      }
+    },
+    {
+      "id": "Mars Fork Alpha",
+      "node_type": "MarsFork",
+      "energy": 798,
+      "capacity": null,
+      "location": "Mars",
+      "sacred_alignment": {
+        "apex_936": false,
+        "vortex_369": false,
+        "code_66": false,
+        "frequency_432": false,
+        "alignment_score": 0
+      },
+      "utilization_percent": 0.0,
+      "position": {
+        "x": 6.123233995736766e-15,
+        "y": 100.0,
+        "z": 7.98
+      }
+    },
+    {
+      "id": "New Atlantis",
+      "node_type": "NewEarthCity",
+      "energy": 1596,
+      "capacity": 5000,
+      "location": "Atlantic Ocean",
+      "sacred_alignment": {
+        "apex_936": false,
+        "vortex_369": true,
+        "code_66": false,
+        "frequency_432": false,
+        "alignment_score": 1
+      },
+      "utilization_percent": 31.919999999999998,
+      "position": {
+        "x": -100.0,
+        "y": 1.2246467991473532e-14,
+        "z": 15.96
+      }
+    },
+    {
+      "id": "Vergina Star Hub",
+      "node_type": "NewEarthCity",
+      "energy": 2395,
+      "capacity": 10000,
+      "location": "Macedonia",
+      "sacred_alignment": {
+        "apex_936": true,
+        "vortex_369": true,
+        "code_66": true,
+        "frequency_432": true,
+        "alignment_score": 4
+      },
+      "utilization_percent": 23.95,
+      "position": {
+        "x": -1.8369701987210297e-14,
+        "y": -100.0,
+        "z": 23.95
+      }
+    }
+  ],
+  "performance": {
+    "distribution_time_ms": 0.012122,
+    "save_time_ms": 0.062153,
+    "average_operation_time_ms": 0.012379166666666669,
+    "memory_usage_kb": 500.0,
+    "operations_count": 6
+  },
+  "history": {
+    "total_cycles": 3,
+    "total_energy_processed": 16626,
+    "peak_energy": 6572,
+    "peak_node_count": 4,
+    "recent_snapshots": [
+      {
+        "cycle": 1,
+        "timestamp": "2026-03-18T20:29:59.529652397Z",
+        "total_energy": 2809,
+        "node_count": 4
+      },
+      {
+        "cycle": 2,
+        "timestamp": "2026-03-18T20:36:36.870572631Z",
+        "total_energy": 4465,
+        "node_count": 4
+      },
+      {
+        "cycle": 3,
+        "timestamp": "2026-03-18T20:36:36.870759213Z",
+        "total_energy": 5589,
+        "node_count": 4
+      },
+      {
+        "cycle": 4,
+        "timestamp": "2026-03-18T20:36:36.880240232Z",
+        "total_energy": 6572,
+        "node_count": 4
+      }
+    ]
+  },
+  "sacred_alignment": {
+    "apex_936_nodes": 2,
+    "vortex_369_nodes": 2,
+    "code_66_nodes": 1,
+    "frequency_432_nodes": 1,
+    "fully_aligned_nodes": 1,
+    "total_alignment_score": 6,
+    "average_alignment": 1.5
+  }
+}
