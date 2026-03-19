@@ -11,3 +11,5 @@ pub mod vector_command;
 pub mod abundance_daemon;
 pub mod dashboard_command;
 pub mod relayer_command;
+pub mod sync_command;
+pub mod schumann_command;

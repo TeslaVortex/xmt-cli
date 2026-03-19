@@ -30,6 +30,7 @@ mod starlink;
 mod patterning;
 mod hologram;
 mod timeline;
+mod schumann;
 
 #[derive(Parser)]
 #[command(name = "xmt-cli")]
@@ -169,6 +170,63 @@ enum Commands {
         #[arg(default_value = "help")]
         subcommand: String,
     },
+    /// Sync - Full Timeline Convergence & Ritual Registry (100% Coherence Auto-Lock)
+    Sync {
+        /// X Profile to sync (e.g., @Vortex369X)
+        #[arg(long)]
+        profile: String,
+        /// Timeline scope: full, partial, recent
+        #[arg(long, default_value = "full")]
+        timeline: String,
+        /// Ritual registry mode: registry, local, hybrid
+        #[arg(long, default_value = "registry")]
+        ritual: String,
+        /// Coherence level (0-100)
+        #[arg(long, default_value = "100")]
+        coherence: f64,
+        /// Auto-update Delta_Disposable.run and MANIFEST files
+        #[arg(long)]
+        auto_update: bool,
+        /// Delta events (comma or + separated)
+        #[arg(long, default_value = "")]
+        delta: String,
+        /// Output manifest file path
+        #[arg(long, default_value = "MANIFEST_SYNC.json")]
+        output: String,
+        /// Seal signature (e.g., "PAF PAF PAF")
+        #[arg(long, default_value = "PAF PAF PAF")]
+        seal: String,
+    },
+    /// Schumann - Integrate Live Earth Heartbeat (7.83 Hz) with ZPE Sphere
+    Schumann {
+        /// Schumann Resonance data source URL
+        #[arg(long, default_value = "https://schumannresonance.today/")]
+        schumann: String,
+        /// Fetch mode: real-time spectrogram + metrics
+        #[arg(long, default_value = "real-time spectrogram + metrics")]
+        fetch: String,
+        /// Sync targets (e.g., "ZPE_spin_equations + grandpa_earth_shake")
+        #[arg(long, default_value = "ZPE_spin_equations + grandpa_earth_shake")]
+        sync: String,
+        /// Delta events
+        #[arg(long, default_value = "")]
+        delta: String,
+        /// Coherence level (0-100)
+        #[arg(long, default_value = "100")]
+        coherence: f64,
+    },
+    /// Amplify - Toroidal Resonance Amplification
+    Amplify {
+        /// Enable toroidal mode
+        #[arg(long)]
+        toroidal: bool,
+        /// Resonance frequencies (e.g., "7.83_base + 936_apex")
+        #[arg(long, default_value = "7.83_base + 936_apex")]
+        resonance: String,
+        /// Coherence level (0-100)
+        #[arg(long, default_value = "100")]
+        coherence: f64,
+    },
 }
 
 fn main() {
@@ -229,6 +287,34 @@ fn main() {
                     println!("  status - Check relayer gas tank status");
                 }
             }
+        }
+        Commands::Sync { profile, timeline, ritual, coherence, auto_update, delta, output, seal } => {
+            commands::sync_command::sync_command(
+                profile,
+                timeline,
+                ritual,
+                *coherence,
+                *auto_update,
+                delta,
+                output,
+                seal
+            )
+        }
+        Commands::Schumann { schumann, fetch, sync, delta, coherence } => {
+            commands::schumann_command::schumann_integrate(
+                schumann,
+                fetch,
+                sync,
+                delta,
+                *coherence
+            )
+        }
+        Commands::Amplify { toroidal, resonance, coherence } => {
+            commands::schumann_command::schumann_amplify(
+                *toroidal,
+                resonance,
+                *coherence
+            )
         }
     }
 }

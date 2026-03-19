@@ -28,3 +28,4 @@ pub mod relayer;
 pub mod patterning;
 pub mod hologram;
 pub mod timeline;
+pub mod schumann;
