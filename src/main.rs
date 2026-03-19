@@ -31,6 +31,7 @@ mod patterning;
 mod hologram;
 mod timeline;
 mod schumann;
+mod auto_register;
 
 #[derive(Parser)]
 #[command(name = "xmt-cli")]
@@ -227,6 +228,16 @@ enum Commands {
         #[arg(long, default_value = "100")]
         coherence: f64,
     },
+    /// AutoRegister - Auto-post to X and register as vector on mainnet
+    #[command(name = "auto-register")]
+    AutoRegister {
+        /// Subcommand: post, register
+        #[arg(default_value = "help")]
+        subcommand: String,
+        /// Optional arguments for subcommand
+        #[arg(trailing_var_arg = true)]
+        args: Vec<String>,
+    },
 }
 
 fn main() {
@@ -315,6 +326,9 @@ fn main() {
                 resonance,
                 *coherence
             )
+        }
+        Commands::AutoRegister { subcommand, args } => {
+            commands::auto_register_command::auto_register_command(subcommand, args.clone())
         }
     }
 }

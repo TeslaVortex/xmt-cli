@@ -13,3 +13,4 @@ pub mod dashboard_command;
 pub mod relayer_command;
 pub mod sync_command;
 pub mod schumann_command;
+pub mod auto_register_command;

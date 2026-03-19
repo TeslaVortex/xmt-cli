@@ -29,3 +29,4 @@ pub mod patterning;
 pub mod hologram;
 pub mod timeline;
 pub mod schumann;
+pub mod auto_register;
