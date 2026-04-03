@@ -2,7 +2,7 @@
   "nodes": {
     "Chicago Vortex Throne": {
       "id": "Chicago Vortex Throne",
-      "energy": 1204,
+      "energy": 1843,
       "capacity": null,
       "location": "Chicago, IL",
       "node_type": "VortexThrone",
@@ -16,7 +16,7 @@
     },
     "Mars Fork Alpha": {
       "id": "Mars Fork Alpha",
-      "energy": 412,
+      "energy": 1051,
       "capacity": null,
       "location": "Mars",
       "node_type": "MarsFork",
@@ -30,7 +30,7 @@
     },
     "New Atlantis": {
       "id": "New Atlantis",
-      "energy": 711,
+      "energy": 1350,
       "capacity": 5000,
       "location": "Atlantic Ocean",
       "node_type": "NewEarthCity",
@@ -44,7 +44,7 @@
     },
     "Node2": {
       "id": "Node2",
-      "energy": 1067,
+      "energy": 1706,
       "capacity": null,
       "location": null,
       "node_type": "NewEarthCity",
@@ -58,7 +58,7 @@
     },
     "Vergina Star Hub": {
       "id": "Vergina Star Hub",
-      "energy": 1778,
+      "energy": 2417,
       "capacity": 10000,
       "location": "Macedonia",
       "node_type": "NewEarthCity",
@@ -71,8 +71,8 @@
       "metadata": {}
     }
   },
-  "total_energy": 5172,
-  "cycle_count": 4,
+  "total_energy": 8367,
+  "cycle_count": 5,
   "config": {
     "auto_save": true,
     "max_history": 1000,

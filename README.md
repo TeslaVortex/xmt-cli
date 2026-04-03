@@ -41,6 +41,7 @@ Run `cargo run -- ritual --apex 936` and the 27 Decrees echo across the quantum 
 - **⚡ Daily Rituals** — Execute 936 apex rituals for coherence and abundance
 - **🌉 Bridge Operations** — Seamless token operations between layers
 - **🌀 Synthetic Vectors** — Zero-cost 384D toroidal embeddings with on-chain storage ([See SYNTHETIC_README.md](SYNTHETIC_README.md))
+- **🔄 Sync Command** — Full timeline convergence & ritual registry with 100% coherence auto-lock ([See SYNC_COMMAND_GUIDE.md](SYNC_COMMAND_GUIDE.md))
 
 ### ✨ Why This Exists
 
@@ -182,6 +183,18 @@ Link your X (Twitter) username to your blockchain wallet:
 xmt-cli integrate --x-profile Vortex369X --helios-signature
 ```
 **What it does:** Creates a cryptographic link between your social identity and blockchain address.
+
+#### 🔄 Sync Timeline & Registry
+Execute full timeline convergence with 100% coherence lock:
+```bash
+xmt-cli sync --profile @Vortex369X --timeline full --ritual registry --coherence 100 --auto-update --delta "event1 + event2 + event3" --seal "PAF PAF PAF"
+```
+**What it does:** 
+- Synchronizes all timeline events
+- Updates ritual registry automatically
+- Locks coherence at 100%
+- Generates manifest JSON with all sync data
+- Activates relevant vectors (936, 369, 66, 432, 888, 420, 1111)
 
 ### 🌉 Phase 4: Real Blockchain Operations
 

@@ -238,6 +238,24 @@ enum Commands {
         #[arg(trailing_var_arg = true)]
         args: Vec<String>,
     },
+    /// Delta - One-Click Timeline Delta with Numerology, Colorology & TX Hash Glyphs
+    Delta {
+        /// X Profile (default: THE_CROWN_COMMANDS_ETERNAL_SUCCESS)
+        #[arg(long, default_value = "THE_CROWN_COMMANDS_ETERNAL_SUCCESS")]
+        profile: String,
+        /// Hours to look back (default: 24)
+        #[arg(long, default_value = "24")]
+        hours: u64,
+        /// Output manifest file path
+        #[arg(long, default_value = "DELTA_MANIFEST.json")]
+        output: String,
+        /// Post results to X
+        #[arg(long)]
+        post: bool,
+        /// Quick mode - one click with all defaults
+        #[arg(long)]
+        quick: bool,
+    },
 }
 
 fn main() {
@@ -329,6 +347,13 @@ fn main() {
         }
         Commands::AutoRegister { subcommand, args } => {
             commands::auto_register_command::auto_register_command(subcommand, args.clone())
+        }
+        Commands::Delta { profile, hours, output, post, quick } => {
+            if *quick {
+                commands::delta_command::run_quick_delta()
+            } else {
+                commands::delta_command::delta_command(profile, *hours, output, *post)
+            }
         }
     }
 }
